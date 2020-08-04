@@ -30,7 +30,6 @@
 </template>
 
 <script>
-// import Velocity from "velocity-animate";
 import { HalfCircleSpinner } from "epic-spinners";
 import SidebarMain from "./SidebarMain.vue";
 import SidebarSearch from "./SidebarSearch.vue";
