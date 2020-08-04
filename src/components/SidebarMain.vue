@@ -55,7 +55,7 @@
       </div>
       <div>
         <img
-          class="inline md:w-64 xl:w-40"
+          class="inline md:w-56 xl:w-40"
           :src="require(`../assets/images/${cloudImage}.png`)"
           alt="heavy rain"
         />
@@ -75,20 +75,20 @@
         >
       </h1>
       <p
-        class="flex justify-center w-full font-semibold text-textPrimary md:text-5xl xl:text-3xl leading-none"
+        class="flex justify-center w-full font-semibold text-textPrimary md:text-4xl xl:text-3xl leading-none"
       >
         {{ cloudInfo }}
       </p>
       <p
-        class="flex justify-between items-center w-8/12 text-textPrimary md:text-3xl xl:text-sm"
+        class="flex justify-between items-center w-8/12 text-textPrimary md:text-2xl xl:text-sm"
       >
         Today
-        <span class="text-xl">&bull;</span>
+        <span class="text-lg">&bull;</span>
         {{ new Date().toDateString() }}
       </p>
       <p class="flex justify-between items-center w-2/5 text-textPrimary">
         <svg
-          class="inline-block md:h-12 md:w-12 xl:h-6 xl:w-6"
+          class="inline-block md:h-8 md:w-8 xl:h-6 xl:w-6"
           viewBox="0 0 512 512"
         >
           <path
@@ -102,7 +102,7 @@
             style="fill:none;stroke:#A09FB1;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"
           />
         </svg>
-        <span class="md:text-4xl xl:text-base">{{ todaysData.city }}</span>
+        <span class="md:text-3xl xl:text-base">{{ todaysData.city }}</span>
       </p>
     </div>
   </div>
