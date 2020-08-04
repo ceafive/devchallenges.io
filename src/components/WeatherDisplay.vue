@@ -125,7 +125,7 @@
           </div>
         </div>
         <p class="text-center text-textPrimary mt-0">
-          <a class="text-red-500" href="https://ceafive.netlify.app/"
+          <a class="text-red-500" href="https://github.com/ceafive/"
             >Castro Agbo</a
           >
           @ DevChallenges.io
