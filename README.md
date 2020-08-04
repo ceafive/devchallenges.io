@@ -1,24 +1,17 @@
-# weather-app
+## **Castro's Weather App**
 
-## Project setup
-```
-yarn install
-```
+### Journey 
+Project Setup
+> * Vue
+> * [TailwindCSS](https://tailwindcss.com)
+> * PostCSS/PurgeCSS
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
 
-### Compiles and minifies for production
-```
-yarn build
-```
+Mobile friendly and responsive. I have tried to implement all user stories as best as possible.
+The journey was very interesting for me as I had stopped using Vue and Tailwind for a while because of the company i am with now. I use Next.js and Material UI a lot now but when I saw the challenge I wanted to try it out.
 
-### Lints and fixes files
-```
-yarn lint
-```
+It was good and purposeful for me to complete it eventhough it took a while because I have been busy.
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Hope people like it. Demo website at [weather-app](https://weather-app-devchallenges.netlify.app/)
+
+You can check my other work at my [Github](https://github.com/ceafive) or my website at [ceafive.netlify.com](https://ceafive.netlify.com/).
