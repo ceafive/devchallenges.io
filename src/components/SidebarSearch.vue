@@ -17,12 +17,12 @@
       <input
         v-model="location"
         class="appearance-none w-9/12 block bg-transparent text-textPrimary border border-gray-500 py-2 px-4 leading-tight focus:outline-none"
-        id="grid-first-name"
+        id="grid-location"
         type="text"
         placeholder="search location"
       />
       <button
-        @click="emitEvents"
+        @click="searchLocationInput"
         class="bg-accent text-sm text-white py-2 px-3 focus:outline-none"
         type="button"
       >
@@ -39,7 +39,7 @@
     <div class="text-white w-full mt-20">
       <h1>Recent Searches</h1>
       <button
-        @click="emitEvents(location)"
+        @click="searchLocationButton(location)"
         v-for="(location, index) in recentSearches"
         :key="index"
         class="inline-flex items-center justify-between w-full bg-transparent py-2 px-2 my-4 border border-gray-500 focus:outline-none"
@@ -57,6 +57,7 @@
 </template>
 
 <script>
+/* eslint-disable no-unreachable */
 export default {
   props: {
     error: {
@@ -72,11 +73,14 @@ export default {
     };
   },
   methods: {
-    // eslint-disable-next-line no-unused-vars
-    emitEvents(search) {
-      if (!this.location && !search) return;
-      this.$emit("add-location", this.location || search);
-      this.$emit("start-weather-search", this.location || search);
+    searchLocationButton(location) {
+      this.$emit("add-location", location);
+      this.$emit("start-weather-search", location);
+    },
+    searchLocationInput() {
+      this.$emit("add-location", this.location);
+      this.$emit("start-weather-search", this.location);
+      this.location = "";
     }
   }
 };

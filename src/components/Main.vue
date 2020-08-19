@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     handleAddLocation(event) {
-      if (typeof event !== "string") return;
+      if (typeof event !== "string" || !event) return;
       const found = this.recentSearches.find(
         x => x.toLowerCase() === event.toLowerCase()
       );

@@ -16,18 +16,30 @@
 
       <div v-else>
         <div class="flex justify-end w-full font-black">
-          <button
-            @click="$emit('toggle-unit', true)"
-            class="bg-textPrimary font-black text-white text-xl p-1 overflow-hidden focus:outline-none rounded-full mr-2"
+          <div
+            class="flex justify-center items-center w-10 h-10 rounded-full mr-2"
+            :class="[isCelsius ? 'bg-white' : 'bg-textPrimary']"
           >
-            <span><sup>o</sup>C</span>
-          </button>
-          <button
-            @click="$emit('toggle-unit', false)"
-            class="bg-textPrimary font-black text-white text-xl p-1 overflow-hidden focus:outline-none rounded-full"
+            <button
+              @click="$emit('toggle-unit', true)"
+              class="font-black text-xl p-1 focus:outline-none"
+              :class="[isCelsius ? 'text-secondary' : 'text-white']"
+            >
+              <span><sup>o</sup>C</span>
+            </button>
+          </div>
+          <div
+            class="flex justify-center items-center w-10 h-10 rounded-full"
+            :class="[isCelsius ? 'bg-textPrimary' : 'bg-white']"
           >
-            <span><sup>o</sup>F</span>
-          </button>
+            <button
+              @click="$emit('toggle-unit', false)"
+              class="font-black text-xl p-1 focus:outline-none"
+              :class="[isCelsius ? 'text-white' : 'text-secondary']"
+            >
+              <span><sup>o</sup>F</span>
+            </button>
+          </div>
         </div>
         <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
           <weather-card

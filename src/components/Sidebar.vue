@@ -11,20 +11,24 @@
       />
     </div>
     <div v-else class="w-full h-screen">
-      <sidebar-main
-        v-if="!isOpenSearch"
-        @toggle-search-box="onToggleSearchBox"
-        :todays-data="weatherData.todaysWeather"
-        :is-celsius="isCelsius"
-      />
-      <sidebar-search
-        v-else
-        :recent-searches="recentSearches"
-        :error="error"
-        @add-location="onAddLocation"
-        @toggle-search-box="onToggleSearchBox"
-        @start-weather-search="onStartWeatherSearch"
-      />
+      <transition name="slideIn">
+        <sidebar-main
+          key="1"
+          v-if="!isOpenSearch"
+          @toggle-search-box="onToggleSearchBox"
+          :todays-data="weatherData.todaysWeather"
+          :is-celsius="isCelsius"
+        />
+        <sidebar-search
+          key="2"
+          v-else
+          :recent-searches="recentSearches"
+          :error="error"
+          @add-location="onAddLocation"
+          @toggle-search-box="onToggleSearchBox"
+          @start-weather-search="onStartWeatherSearch"
+        />
+      </transition>
     </div>
   </div>
 </template>
@@ -78,4 +82,29 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slideIn-enter-active {
+  animation: slideIn 1s forwards;
+}
+.slideIn-leave-active {
+  animation: slideIn 0.5s reverse;
+}
+@keyframes slideIn {
+  0% {
+    transform: translateX(-900px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+</style>

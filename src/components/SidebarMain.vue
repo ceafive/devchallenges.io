@@ -11,51 +11,55 @@
         >
           Search for places
         </button>
-        <button
-          class="bg-buttonPrimary text-textSecondary font-hairline p-2 focus:outline-none rounded-full"
+        <div
+          class="flex justify-center items-center w-10 h-10 md:w-16 md:h-16 xl:w-10 xl:h-10 bg-buttonPrimary rounded-full"
         >
-          <svg
-            class="inline-block md:h-12 md:w-12 lg: xl:h-6 xl:w-6 cursor-pointer"
-            viewBox="0 0 512 512"
+          <button
+            class=" text-textSecondary font-hairline p-2 focus:outline-none"
           >
-            <line
-              x1="256"
-              y1="96"
-              x2="256"
-              y2="56"
-              style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"
-            />
-            <line
-              x1="256"
-              y1="456"
-              x2="256"
-              y2="416"
-              style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"
-            />
-            <path
-              d="M256,112A144,144,0,1,0,400,256,144,144,0,0,0,256,112Z"
-              style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:32px"
-            />
-            <line
-              x1="416"
-              y1="256"
-              x2="456"
-              y2="256"
-              style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"
-            />
-            <line
-              x1="56"
-              y1="256"
-              x2="96"
-              y2="256"
-              style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"
-            />
-          </svg>
-        </button>
+            <svg
+              class="inline-block h-8 w-8 md:h-10 md:w-10 xl:h-6 xl:w-6 cursor-pointer"
+              viewBox="0 0 512 512"
+            >
+              <line
+                x1="256"
+                y1="96"
+                x2="256"
+                y2="56"
+                style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"
+              />
+              <line
+                x1="256"
+                y1="456"
+                x2="256"
+                y2="416"
+                style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"
+              />
+              <path
+                d="M256,112A144,144,0,1,0,400,256,144,144,0,0,0,256,112Z"
+                style="fill:none;stroke:#fff;stroke-miterlimit:10;stroke-width:32px"
+              />
+              <line
+                x1="416"
+                y1="256"
+                x2="456"
+                y2="256"
+                style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"
+              />
+              <line
+                x1="56"
+                y1="256"
+                x2="96"
+                y2="256"
+                style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <div>
         <img
-          class="inline md:w-56 xl:w-40"
+          class="inline w-56 lg:w-72 xl:w-40"
           :src="require(`../assets/images/${cloudImage}.png`)"
           alt="heavy rain"
         />
@@ -71,7 +75,8 @@
       >
         {{ todaysTemp
         }}<span class="text-textPrimary text-4xl xl:text-6xl"
-          ><sup class="text-xl xl:text-4xl">o</sup>{{ tempUnit }}</span
+          ><sup class="text-xl lg:text-3xl xl:text-4xl">o</sup
+          ><span class="text-4xl lg:text-6xl">{{ tempUnit }}</span></span
         >
       </h1>
       <p
@@ -87,10 +92,7 @@
         {{ new Date().toDateString() }}
       </p>
       <p class="flex justify-between items-center w-2/5 text-textPrimary">
-        <svg
-          class="inline-block md:h-8 md:w-8 xl:h-6 xl:w-6"
-          viewBox="0 0 512 512"
-        >
+        <svg class="inline-block h-8 w-8 xl:h-6 xl:w-6" viewBox="0 0 512 512">
           <path
             d="M256,48c-79.5,0-144,61.39-144,137,0,87,96,224.87,131.25,272.49a15.77,15.77,0,0,0,25.5,0C304,409.89,400,272.07,400,185,400,109.39,335.5,48,256,48Z"
             style="fill:none;stroke:#A09FB1;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"
@@ -144,5 +146,6 @@ export default {
   background-attachment: initial;
   background-position: contain;
   background-size: 500px 300px;
+  background-blend-mode: luminosity;
 }
 </style>
