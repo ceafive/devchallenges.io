@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+body {
+  font-family: "PT Serif", serif;
+}
+
+#image-uploader {
+  background-color: #fafafb;
+  height: 550px;
+  width: 450px;
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.1);
+}
+#upload-image-box {
+  height: 400px;
+  width: 400px;
+}
+#inner-image-box {
+  background-color: #f6f8fb;
+  border-radius: 12px;
+  border: 1px dotted #97bef4;
+}
+
+#upload-button {
+  background-color: #2f80ed;
+}

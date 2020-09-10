@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="app.css" />
+    <script src="app.js" defer></script>
+    <title>Image Uploader</title>
+  </head>
+  <body class="h-screen">
+    <div
+      class="flex flex-col items-center justify-center h-full w-full bg-gray-100"
+    >
+      <div
+        id="image-uploader"
+        class="flex flex-col items-center justify-center rounded-lg"
+      >
+        <div id="uploader-header" class="mb-5 text-center">
+          <div class="font-bold text-3xl">
+            <h1>Upload your image</h1>
+          </div>
+          <div>
+            <h2>Files should be .jpeg or .png</h2>
+          </div>
+        </div>
+        <div
+          id="upload-image-box"
+          class="relative flex flex-col items-center justify-center focus:outline-none"
+        >
+          <div
+            id="inner-image-box"
+            class="flex flex-col items-center justify-center w-full h-full"
+          >
+            <img
+              class="inline h-40 w-40"
+              src="https://cdn.shopify.com/s/files/1/2523/8150/t/5/assets/no-image.svg?v=11845786216574533032"
+              alt="image-image"
+            />
+            <p class="text-gray-700">Drag and drop your image here</p>
+          </div>
+          <input
+            id="upload-box"
+            class="absolute h-full w-full opacity-0"
+            type="file"
+            name="image"
+            accept="image/png, image/jpeg"
+          />
+          <div class="text-center text-gray-700 mt-5">
+            <p>or</p>
+            <button
+              id="upload-button"
+              class="text-white font-light py-2 px-4 rounded cursor-pointer focus:outline-none"
+            >
+              Choose a file
+            </button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button
+          id="get-photos"
+          class="bg-blue-500 text-white font-light py-2 px-4 rounded cursor-pointer focus:outline-none"
+        >
+          GET PHOTOS
+        </button>
+        <p class="text-center text-black mt-0">
+          <a
+            class="text-blue-500"
+            target="_blank"
+            href="https://github.com/ceafive/"
+            >Castro Agbo</a
+          >
+          @ DevChallenges.io
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
