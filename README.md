@@ -8,11 +8,11 @@
 
 <div align="center">
   <h3>
-    <a href="https://{your-demo-link.your-domain}">
+    <a href="https://image-uploader-devchallenges.netlify.app/">
       Demo
     </a>
     <span> | </span>
-    <a href="https://{your-url-to-the-solution}">
+    <a href="https://github.com/ceafive/devchallenges.io/tree/image-uploader">
       Solution
     </a>
     <span> | </span>
@@ -42,7 +42,7 @@
 Introduce your projects by taking a screenshot or a gif. Try to tell visitors a story about your project by answering:
 
 - Where can I see your demo?
-- You cansee 
+- You can see 
 - What was your experience?
 - What have you learned/improved?
 - Your wisdom? :)
@@ -67,17 +67,21 @@ This application/site was created as a submission to a [DevChallenges](https://d
 
 <!-- Example: -->
 
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+To clone and run this application, you'll need [Git](https://git-scm.com) installed on your computer. From your command line:
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/your-user-name/your-project-name
+$ git clone https://github.com/ceafive/devchallenges.io
 
-# Install dependencies
-$ npm install
+# Change Directory
+$ cd image-uploader
 
 # Run the app
-$ npm start
+$ Open app in VS Code or any other editor
+$ Install Live Server Extension by Ritwick Dey https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer
+$ After installation, just right click in VS Code and select Open with Live Server
+
+
 ```
 
 ## Acknowledgements
@@ -90,6 +94,6 @@ $ npm start
 
 ## Contact
 
-- Website [your-website.com](https://{your-web-site-link})
-- GitHub [@your-username](https://{github.com/your-usermame})
-- Twitter [@your-twitter](https://{twitter.com/your-username})
+- Website [ceafive.netlify.app](https://ceafive.netlify.app)
+- GitHub [@ceafive](https:/{github.com/ceafive)
+- Twitter [@ceafive](https://twitter.com/ceafive)
