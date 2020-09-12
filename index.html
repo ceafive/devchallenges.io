@@ -4,80 +4,149 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link
       href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
       rel="stylesheet"
-      type="text/css"
     />
     <link rel="stylesheet" href="app.css" />
     <script src="app.js" defer></script>
     <title>Image Uploader</title>
   </head>
-  <body class="h-screen">
+  <body class="flex flex-col items-center justify-center h-screen bg-gray-100">
+    <!-- Section 1 -->
     <div
-      class="flex flex-col items-center justify-center h-full w-full bg-gray-100"
+      id="image-uploader"
+      class="flex flex-col items-center justify-center rounded-lg animate__animated"
     >
-      <div
-        id="image-uploader"
-        class="flex flex-col items-center justify-center rounded-lg"
-      >
-        <div id="uploader-header" class="mb-5 text-center">
-          <div class="font-bold text-3xl">
-            <h1>Upload your image</h1>
-          </div>
-          <div>
-            <h2>Files should be .jpeg or .png</h2>
-          </div>
+      <div id="uploader-header" class="mb-5 text-center">
+        <div class="font-bold text-2xl md:text-3xl">
+          <h1>Upload your image</h1>
         </div>
-        <div
-          id="upload-image-box"
-          class="relative flex flex-col items-center justify-center focus:outline-none"
-        >
-          <div
-            id="inner-image-box"
-            class="flex flex-col items-center justify-center w-full h-full"
-          >
-            <img
-              class="inline h-40 w-40"
-              src="https://cdn.shopify.com/s/files/1/2523/8150/t/5/assets/no-image.svg?v=11845786216574533032"
-              alt="image-image"
-            />
-            <p class="text-gray-700">Drag and drop your image here</p>
-          </div>
-          <input
-            id="upload-box"
-            class="absolute h-full w-full opacity-0"
-            type="file"
-            name="image"
-            accept="image/png, image/jpeg"
-          />
-          <div class="text-center text-gray-700 mt-5">
-            <p>or</p>
-            <button
-              id="upload-button"
-              class="text-white font-light py-2 px-4 rounded cursor-pointer focus:outline-none"
-            >
-              Choose a file
-            </button>
-          </div>
+        <div class="text-sm md:text-base">
+          <h2>Files should be .jpeg or .png</h2>
         </div>
       </div>
-      <div>
-        <button
-          id="get-photos"
-          class="bg-blue-500 text-white font-light py-2 px-4 rounded cursor-pointer focus:outline-none"
+      <div
+        id="upload-image-box"
+        class="relative flex flex-col items-center justify-center focus:outline-none"
+      >
+        <div
+          id="inner-image-box"
+          class="flex flex-col items-center justify-center w-full h-full"
         >
-          GET PHOTOS
+          <img
+            class="inline h-40 w-40"
+            src="https://cdn.shopify.com/s/files/1/2523/8150/t/5/assets/no-image.svg?v=11845786216574533032"
+            alt="image-image"
+          />
+          <p class="text-gray-700">Drag and drop your image here</p>
+        </div>
+        <input
+          id="upload-box"
+          class="absolute h-full w-full opacity-0"
+          type="file"
+          name="image"
+          accept="image/png, image/jpeg"
+        />
+      </div>
+      <div class="text-center text-gray-700">
+        <p>or</p>
+        <button
+          id="upload-button"
+          class="text-white font-light py-2 px-4 rounded cursor-pointer focus:outline-none"
+        >
+          Choose a file
         </button>
-        <p class="text-center text-black mt-0">
-          <a
-            class="text-blue-500"
-            target="_blank"
-            href="https://github.com/ceafive/"
-            >Castro Agbo</a
-          >
-          @ DevChallenges.io
+        <p id="error-text" class="text-red-500 font-bold hidden">
+          Error uploading file. Please try again.
         </p>
       </div>
+    </div>
+
+    <!-- End section 1 -->
+
+    <!-- Section 2 -->
+    <div
+      id="uploading-box"
+      class="flex flex-col items-center justify-center rounded-lg animate__animated hidden"
+    >
+      <div class="mb-5 text-center w-full p-10">
+        <div class="font-bold text-3xl">
+          <h1>Uploading...</h1>
+        </div>
+        <div class="w-full h-2 bg-gray-300 rounded">
+          <div
+            id="progress-bar"
+            class="bg-blue-600 rounded"
+            style="height: 100%; width: 0%"
+          ></div>
+        </div>
+      </div>
+    </div>
+    <!-- End section 2 -->
+
+    <!-- Section 3 -->
+    <div
+      id="image-success"
+      class="flex flex-col items-center justify-between rounded-lg py-5 animate__animated hidden"
+    >
+      <!-- 1 -->
+      <div class="text-center">
+        <div>
+          <i class="material-icons md-48 text-green-700">check_circle</i>
+        </div>
+        <div class="font-bold text-3xl">
+          <h2>Uploaded Successfully!</h2>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div id="show-image-box" class="rounded-lg overflow-hidden">
+        <img
+          id="image-success-preview"
+          class="h-full w-full rounded-lg"
+          src="http://res.cloudinary.com/ceafive/image/upload/v1599925426/appstore_qwqbgv.png"
+          alt=""
+        />
+      </div>
+
+      <!-- 3 -->
+      <div
+        class="flex justify-between bg-gray-200 py-1 px-1 text-black rounded-lg border border-gray-400 w-11/12"
+      >
+        <input
+          id="url-box"
+          type="text"
+          class="flex-1 bg-gray-200 focus:outline-none"
+        />
+
+        <button
+          id="copy-link-button"
+          class="text-white font-light text-sm py-2 px-4 rounded cursor-pointer focus:outline-none"
+        >
+          Copy Link
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div>
+      <p class="text-center text-black mt-0">
+        <a
+          class="text-blue-500"
+          target="_blank"
+          href="https://github.com/ceafive/"
+          >Castro Agbo</a
+        >
+        @ DevChallenges.io
+      </p>
     </div>
   </body>
 </html>
