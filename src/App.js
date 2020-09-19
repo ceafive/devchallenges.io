@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
 } from "react-router-dom"
 
 import { authService, retrieveFromLocalStorage, sleep } from "./utils"
@@ -15,10 +14,7 @@ const App = () => {
   const [userData, setUserData] = React.useState(() =>
     retrieveFromLocalStorage("uploaderCreds")
   )
-  const [userLoggedIn, setUserLoggedIn] = React.useState(
-    userData ? userData.auth : false
-  )
-
+ 
   React.useEffect(() => {
     authService.setUser(userData)
 
@@ -28,7 +24,7 @@ const App = () => {
         await sleep(1000)
         setUserData(data)
       }
-      setUserLoggedIn(data ? data.auth : false)
+    
     })
     return () => subscription.unsubscribe()
   }, [userData])
