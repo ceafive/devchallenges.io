@@ -38,7 +38,7 @@ const App = () => {
       <Router>
         <Switch>
           <Route path="/gallery">
-            {userLoggedIn ? <Main userData={userData} /> : <Redirect to="/" />}
+            <Main userData={userData} />
           </Route>
           <Route exact path="/">
             <LoginRegister />

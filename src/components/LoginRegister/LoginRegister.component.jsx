@@ -1,10 +1,12 @@
 import React from "react"
 import { useHistory } from "react-router-dom"
 import firebase from "../../utils/firebase"
-import { authService, sendToLocalStorage } from "../../utils"
 import {
+  authService,
+  sendToLocalStorage,
   handleAddUserToFirestore,
   handleUpdateUserInFirestore,
+  sleep,
 } from "../../utils"
 
 import {
@@ -58,6 +60,7 @@ const LoginRegister = () => {
           if (!user) throw new Error("error getting user")
           user.password = formData.password
           let userData
+
           if (isLogin) {
             userData = await handleUpdateUserInFirestore(user)
           }
@@ -74,7 +77,10 @@ const LoginRegister = () => {
           sendToLocalStorage(userData)
           setAuthenticating(false)
           setFormData(initialState)
-          history.push("/gallery")
+
+          await sleep(1500).then(() => {
+            history.push("/gallery")
+          })
         } catch (error) {
           setAuthenticating(false)
           setErrorMessage("An error occurred. Try again.")

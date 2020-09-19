@@ -21,12 +21,12 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
 
-if (window.location.hostname === "localhost") {
-  firebase.functions().useFunctionsEmulator("http://localhost:5001")
-  firebase.firestore().settings({
-    host: "localhost:8080",
-    ssl: false,
-  })
-}
+// if (window.location.hostname === "localhost") {
+//   firebase.functions().useFunctionsEmulator("http://localhost:5001")
+//   firebase.firestore().settings({
+//     host: "localhost:8080",
+//     ssl: false,
+//   })
+// }
 
 export default firebase

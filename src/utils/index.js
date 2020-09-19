@@ -25,7 +25,7 @@ export const handleAddUserToFirestore = async (user) => {
       id: user.uid,
       email: user.email,
       password: passwordHash,
-      dateCreated: firebase.firestore.FieldValue.serverTimestamp(),
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
       imagesArray: [],
     })
