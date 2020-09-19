@@ -31,7 +31,7 @@ const App = () => {
       setUserLoggedIn(data ? data.auth : false)
     })
     return () => subscription.unsubscribe()
-  }, [])
+  }, [userData])
 
   return (
     <div className="font-body h-screen">

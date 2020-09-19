@@ -124,7 +124,7 @@ const Main = (props) => {
       await userRef.put(file, metadata).on(
         "state_changed",
         (snap) => {
-          let percentage = (snap.bytesTransferred / snap.totalBytes) * 100
+          // let percentage = (snap.bytesTransferred / snap.totalBytes) * 100
         },
         (err) => {
           setMessage({
