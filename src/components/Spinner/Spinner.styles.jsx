@@ -14,7 +14,7 @@ export const SpinnerContainer = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 60px;
+  width: 40px;
   height: 20px;
 
   & div:nth-child(1) {
@@ -31,8 +31,8 @@ export const SpinnerContainer = styled.div`
 export const SpinnerDivs = styled.div`
   box-sizing: border-box;
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: 15px;
+  height: 15px;
   border: 3px solid #fff;
   border-radius: 50%;
   animation: ${spinner} 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;

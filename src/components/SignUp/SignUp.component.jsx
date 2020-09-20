@@ -10,6 +10,8 @@ import {
   FormInputText,
 } from "./SignUp.styles"
 
+import Spinner from "../Spinner/Spinner.component"
+
 const SignUp = (props) => {
   const { data, handleInputChange, handleAuthFlow, isDisabled } = props
   return (
@@ -44,7 +46,7 @@ const SignUp = (props) => {
           type="button"
           onClick={handleAuthFlow}
         >
-          Sign Up
+          {isDisabled ? <Spinner /> : `     Sign Up`}
         </FormButtonButton>
       </FormButtonContainer>
     </>

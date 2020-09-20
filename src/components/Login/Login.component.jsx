@@ -12,6 +12,8 @@ import {
   FormInputText,
 } from "./Login.styles"
 
+import Spinner from "../Spinner/Spinner.component"
+
 const Login = (props) => {
   const { data, handleInputChange, handleAuthFlow, isDisabled } = props
   return (
@@ -52,9 +54,9 @@ const Login = (props) => {
           type="button"
           onClick={handleAuthFlow}
         >
-          Login
+          {isDisabled ? <Spinner /> : `Login`}
         </FormButtonButton>
-        <FormButtonLink href="#">Forgot Password?</FormButtonLink>
+        <FormButtonLink onClick={() => {}}>Forgot Password?</FormButtonLink>
       </FormButtonContainer>
     </>
   )

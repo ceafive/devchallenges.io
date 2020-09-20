@@ -2,7 +2,7 @@ import styled from "styled-components/macro"
 import tw from "twin.macro"
 
 export const LoginRegisterContainer = styled.div`
-  ${tw`flex flex-col justify-center items-center w-full h-full bg-gray-100`}
+  ${tw`relative flex flex-col justify-center items-center w-full h-full bg-gray-100`}
 `
 
 export const AuthContainer = styled.div`
@@ -21,4 +21,8 @@ export const AuthFooterButton = styled.button`
 
 export const AuthError = styled.p`
   ${tw`text-red-500 text-xs mt-2 text-center`}
+`
+
+export const Footer = styled.a`
+  ${tw` text-center text-black mt-2 w-full`}
 `

@@ -1,5 +1,5 @@
 {
-  "name": "react-image-uploader",
+  "name": "react-my-unsplash",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,22 +10,19 @@
     "dotenv": "^8.2.0",
     "firebase": "^7.20.0",
     "framer-motion": "^2.6.13",
-    "lodash": "^4.17.20",
-    "masonry-layout": "^4.2.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-masonry-css": "^1.0.14",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "react-transition-group": "^4.4.1",
     "rxjs": "^6.6.3",
     "styled-components": "^5.2.0"
   },
   "scripts": {
-    "build:css": "postcss src/assets/tailwind.css -o src/assets/styles.css",
-    "watch:css": "postcss src/assets/tailwind.css -o src/assets/styles.css",
-    "build": "npm run build:css & react-scripts build",
-    "start": "npm run watch:css & react-scripts start",
+    "prestart": "npx tailwindcss build src/assets/tailwind.css -o src/assets/styles.css",
+    "prebuild": "npx tailwindcss build src/assets/tailwind.css -o src/assets/styles.css",
+    "build": "react-scripts build",
+    "start": "react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -50,7 +47,6 @@
   "devDependencies": {
     "autoprefixer": "^9.8.6",
     "babel-plugin-macros": "^2.8.0",
-    "postcss-cli": "^7.1.2",
     "tailwindcss": "^1.8.10",
     "twin.macro": "^1.9.0"
   },

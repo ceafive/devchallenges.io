@@ -1,68 +1,95 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- Please update value in the {}  -->
 
-## Available Scripts
+<h1 align="center">React My Unsplash</h1>
 
-In the project directory, you can run:
+<div align="center">
+   Solution for a challenge from  <a href="http://devchallenges.io" target="_blank">Devchallenges.io</a>.
+</div>
 
-### `yarn start`
+<div align="center">
+  <h3>
+    <a href="https://react-my-unsplash-devchallenges.netlify.app">
+      Demo
+    </a>
+    <span> | </span>
+    <a href="https://github.com/ceafive/devchallenges.io/tree/react-my-unsplash-uploader">
+      Solution
+    </a>
+    <span> | </span>
+    <a href="https://devchallenges.io/challenges/rYyhwJAxMfES5jNQ9YsP">
+      Challenge
+    </a>
+  </h3>
+</div>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<!-- TABLE OF CONTENTS -->
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Table of Contents
 
-### `yarn test`
+- [Overview](#overview)
+  - [Built With](#built-with)
+- [Features](#features)
+- [How to use](#how-to-use)
+- [Contact](#contact)
+- [Acknowledgements](#acknowledgements)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<!-- OVERVIEW -->
 
-### `yarn build`
+## Overview
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![screenshot](https://user-images.githubusercontent.com/43540435/93724760-8c432480-fb99-11ea-92a7-d630c6800e80.png)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Built With
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<!-- This section should list any major frameworks that you built your project using. Here are a few examples.-->
 
-### `yarn eject`
+- [React](https://reactjs.org/)
+- [Styled Components](https://styled-components.com/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [Tailwind](https://tailwindcss.com/)
+- [Firebase](https://firebase.google.com/)
+- [React Router](https://reactrouter.com/)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Features
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<!-- List the features of your application or follow the template. Don't share the figma file here :) -->
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+This application/site was created as a submission to a [DevChallenges](https://devchallenges.io/challenges) challenge. The [challenge](https://devchallenges.io/challenges/rYyhwJAxMfES5jNQ9YsP) was to build an application to complete the given user stories.
 
-## Learn More
+## How To Use
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<!-- Example: -->
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
-### Code Splitting
+```bash
+# Clone this repository
+$ git clone https://github.com/ceafive/devchallenges.io/tree/react-my-unsplash-uploader
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+# Install dependencies
+$ npm install
 
-### Analyzing the Bundle Size
+# Register a Firebase project
+$ Create a Firebase project 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+# Add an .env file
+$ Add an .env file to the root of your project with your Firebase config
 
-### Making a Progressive Web App
+# Run the app
+$ npm start
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+## Acknowledgements
 
-### Advanced Configuration
+<!-- This section should list any articles or add-ons/plugins that helps you to complete the project. This is optional but it will help you in the future. For example: -->
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+- [Twin Macro Babel Plugin](https://github.com/ben-rogerson/twin.macro)
+- [React Masonry CSS](https://github.com/paulcollett/react-masonry-css)
 
-### Deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+## Contact
 
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- Website [ceafive.netlify.app](https://ceafive.netlify.app)
+- GitHub [@ceafive](https://github.com/ceafive)
+- Twitter [@ceafive](https://twitter.com/ceafive)

@@ -4,9 +4,8 @@ import firebase from "../../utils/firebase"
 import {
   authService,
   sendToLocalStorage,
-  handleAddUserToFirestore,
-  handleUpdateUserInFirestore,
-  sleep,
+  handleRegisterUser,
+  handleLoginUser,
 } from "../../utils"
 
 import {
@@ -16,6 +15,7 @@ import {
   AuthFooterText,
   AuthFooterButton,
   AuthError,
+  Footer,
 } from "./LoginRegister.styles"
 import Login from "../Login/Login.component"
 import SignUp from "../SignUp/SignUp.component"
@@ -25,12 +25,22 @@ const initialState = {
   password: "",
 }
 
-const LoginRegister = () => {
+const LoginRegister = (props) => {
+  const { isLoggedIn } = props
   const history = useHistory()
   const [isLogin, setIsLogin] = React.useState(true)
   const [formData, setFormData] = React.useState(initialState)
   const [errorMessage, setErrorMessage] = React.useState("")
   const [authenticating, setAuthenticating] = React.useState(false)
+
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      history.push("/gallery")
+      setFormData(initialState)
+    }
+    return () => {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn])
 
   const handleInputChange = (field, value) => {
     setFormData({ ...formData, [field]: value })
@@ -62,11 +72,11 @@ const LoginRegister = () => {
           let userData
 
           if (isLogin) {
-            userData = await handleUpdateUserInFirestore(user)
+            userData = await handleLoginUser(user)
           }
 
           if (!isLogin) {
-            userData = await handleAddUserToFirestore(user)
+            userData = await handleRegisterUser(user)
           }
 
           if (!userData) throw userData
@@ -76,11 +86,6 @@ const LoginRegister = () => {
           authService.setUser(userData)
           sendToLocalStorage(userData)
           setAuthenticating(false)
-
-          await sleep(1500).then(() => {
-            history.push("/gallery")
-            setFormData(initialState)
-          })
         } catch (error) {
           setAuthenticating(false)
           setErrorMessage("An error occurred. Try again.")
@@ -131,6 +136,9 @@ const LoginRegister = () => {
       </AuthContainer>
 
       <AuthError>{errorMessage}</AuthError>
+      <Footer target="_blank" href="https://github.com/ceafive/">
+        Castro Agbo @ DevChallenges.io
+      </Footer>
     </LoginRegisterContainer>
   )
 }

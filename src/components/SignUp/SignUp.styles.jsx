@@ -23,7 +23,12 @@ export const FormButtonContainer = styled.div`
 `
 
 export const FormButtonButton = styled.button`
-  ${tw`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline`}
+  ${(props) =>
+    props.disabled
+      ? tw`bg-gray-500 cursor-not-allowed`
+      : tw`bg-blue-500 hover:bg-blue-700`}
+
+  ${tw`text-white font-bold py-2 px-4 rounded focus:outline-none`}
 `
 
 export const FormButtonLink = styled.a`

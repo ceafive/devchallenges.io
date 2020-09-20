@@ -14,7 +14,6 @@ import {
   sendToLocalStorage,
   testValidImage,
   comparePassword,
-  sleep,
 } from "../../utils"
 import firebase from "../../utils/firebase"
 
@@ -27,7 +26,7 @@ const initialData = {
 
 const Main = (props) => {
   const history = useHistory()
-  const { userData } = props
+  const { userData, isLoggedIn } = props
   const [showModal, setShowModal] = React.useState({
     type: "",
     condition: false,
@@ -44,6 +43,14 @@ const Main = (props) => {
     error: false,
     message: "",
   })
+
+  React.useEffect(() => {
+    if (!isLoggedIn) {
+      history.push("/")
+    }
+    return () => {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn])
 
   const handleChange = (field, value) => {
     setNewPhotoData({ ...newPhotoData, [field]: value })
@@ -208,9 +215,6 @@ const Main = (props) => {
       setMessage({ error: true, message: `Photo Not Added!` })
       setNewPhotoData(initialData)
       setPhotoTaskRunning(false)
-    } finally {
-      await sleep(1000)
-      // handleModal(false)
     }
   }
 
@@ -254,12 +258,12 @@ const Main = (props) => {
       console.log(error)
       setMessage({ error: true, message: `Photo Not Deleted!` })
       setPhotoTaskRunning(false)
-    } 
+    }
   }
 
   const openImageModal = (img, condition = true) => {
-    setShowImageModal(condition)
     setImageToDisplay(img)
+    setShowImageModal(condition)
   }
 
   const handleSearch = (str) => {

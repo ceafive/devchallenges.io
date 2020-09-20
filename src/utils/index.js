@@ -14,7 +14,7 @@ const hashPassword = async (password) => {
   return hash
 }
 
-export const handleAddUserToFirestore = async (user) => {
+export const handleRegisterUser = async (user) => {
   try {
     const db = firebase.firestore()
     const userRef = db.collection("users").doc(user.uid)
@@ -40,12 +40,15 @@ export const handleAddUserToFirestore = async (user) => {
   }
 }
 
-export const handleUpdateUserInFirestore = async (user) => {
+export const handleLoginUser = async (user) => {
   try {
     const db = firebase.firestore()
     const userRef = db.collection("users").doc(user.uid)
+    // create password hash and send to firestore
+    const passwordHash = await hashPassword(user.password)
 
     await userRef.update({
+      password: passwordHash,
       lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
     })
 

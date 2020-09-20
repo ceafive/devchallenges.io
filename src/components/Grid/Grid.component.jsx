@@ -9,24 +9,33 @@ import {
   GridNoImages,
 } from "./Grid.styles"
 
-// const breakpointColumnsObj = {
-//   default: 4,
-//   1100: 3,
-//   700: 2,
-//   500: 1,
-// }
+const breakpointColumnsObj = {
+  default: 4,
+  1100: 2,
+  700: 2,
+  500: 1,
+}
 
 const Grid = (props) => {
-  const {
-    userData: { imagesArray },
-    handleModal,
-    openImageModal,
-  } = props
+  const { userData, handleModal, openImageModal } = props
+  const [userImages, setUserImages] = React.useState([])
+
+  React.useEffect(() => {
+    if (userData) {
+      setUserImages(userData.imagesArray)
+    }
+    return () => {
+      setUserImages([])
+    }
+  }, [userData])
 
   return (
     <>
-      <MasonryGrid breakpointCols={4} columnClassName="my-masonry-grid_column">
-        {imagesArray.map((img, index) => {
+      <MasonryGrid
+        breakpointCols={breakpointColumnsObj}
+        columnClassName="my-masonry-grid_column"
+      >
+        {userImages.map((img, index) => {
           return (
             <GridContainer
               layout
@@ -51,7 +60,7 @@ const Grid = (props) => {
           )
         })}
       </MasonryGrid>
-      {imagesArray.length === 0 && <GridNoImages>No Images</GridNoImages>}
+      {userImages.length === 0 && <GridNoImages>No Images</GridNoImages>}
     </>
   )
 }

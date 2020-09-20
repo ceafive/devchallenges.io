@@ -11,7 +11,9 @@ const App = () => {
     retrieveFromLocalStorage("uploaderCreds")
   )
 
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false)
+  const [isLoggedIn, setIsLoggedIn] = React.useState(
+    userData ? userData.auth : false
+  )
 
   React.useEffect(() => {
     authService.setUser(userData)
@@ -21,21 +23,24 @@ const App = () => {
       if (data) {
         await sleep(1000)
         setUserData(data)
-        setIsLoggedIn(true)
       }
+      setIsLoggedIn(data ? data.auth : false)
     })
     return () => subscription.unsubscribe()
   }, [userData])
 
   return (
-    <div className="font-body h-screen">
+    <div className="relative font-body h-screen">
       <Router>
         <Switch>
-          <Route path="/gallery">
-            <Main userData={userData} />
+          <Route key={1} path="/gallery">
+            <Main userData={userData} isLoggedIn={isLoggedIn} />
           </Route>
-          <Route exact path="/">
+          <Route key={2} exact path="/">
             <LoginRegister isLoggedIn={isLoggedIn} />
+          </Route>
+          <Route key={3}>
+            <Main userData={userData} isLoggedIn={isLoggedIn} />
           </Route>
         </Switch>
       </Router>

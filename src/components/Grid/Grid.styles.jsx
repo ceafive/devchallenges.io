@@ -4,7 +4,7 @@ import Masonry from "react-masonry-css"
 import { motion } from "framer-motion"
 
 export const MasonryGrid = styled(Masonry)`
-  ${tw`flex py-10`}
+  ${tw`flex py-10 px-10 md:px-20 w-full h-full`}
 `
 
 export const GridContainer = styled(motion.div)`
