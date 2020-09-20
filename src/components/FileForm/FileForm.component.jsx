@@ -11,14 +11,26 @@ import {
   FileFormUploadBoxTextInput,
   FileFormUploadBoxTextInputLabel,
   FileFormInnerBox,
+  FileFormHeaderContainer,
+  FileFormHeaderCloseButton,
 } from "./FileForm.styles"
 
 const FileForm = (props) => {
-  const { newPhotoData, handleFileInputChange, photoTaskRunning } = props
+  const {
+    newPhotoData,
+    handleFileInputChange,
+    photoTaskRunning,
+    handleModal,
+  } = props
 
   return (
     <FileFormContainer>
-      <FileFormHeader>Upload your image</FileFormHeader>
+      <FileFormHeaderContainer>
+        <FileFormHeader>Upload your image file</FileFormHeader>
+        <FileFormHeaderCloseButton onClick={() => handleModal(false)}>
+          X
+        </FileFormHeaderCloseButton>
+      </FileFormHeaderContainer>
       <FileFormOuterBox>
         <FileFormUploadBox>
           {!newPhotoData.file && (

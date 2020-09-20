@@ -12,3 +12,9 @@ export const URLFormInput = styled.input`
 export const URLFormHeader = styled.h1`
   ${tw`font-bold text-black text-xl mb-4`}
 `
+export const URLFormHeaderContainer = styled.div`
+  ${tw`flex items-center justify-between w-full`}
+`
+export const URLFormHeaderCloseButton = styled.button`
+  ${tw`font-bold text-red-500 text-xl mb-4 focus:outline-none`}
+`

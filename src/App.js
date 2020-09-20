@@ -1,9 +1,5 @@
 import React from "react"
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
 import { authService, retrieveFromLocalStorage, sleep } from "./utils"
 
@@ -14,7 +10,9 @@ const App = () => {
   const [userData, setUserData] = React.useState(() =>
     retrieveFromLocalStorage("uploaderCreds")
   )
- 
+
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false)
+
   React.useEffect(() => {
     authService.setUser(userData)
 
@@ -23,8 +21,8 @@ const App = () => {
       if (data) {
         await sleep(1000)
         setUserData(data)
+        setIsLoggedIn(true)
       }
-    
     })
     return () => subscription.unsubscribe()
   }, [userData])
@@ -37,7 +35,7 @@ const App = () => {
             <Main userData={userData} />
           </Route>
           <Route exact path="/">
-            <LoginRegister />
+            <LoginRegister isLoggedIn={isLoggedIn} />
           </Route>
         </Switch>
       </Router>

@@ -4,14 +4,21 @@ import {
   DeleteFormHeader,
   DeleteFormLabel,
   DeleteFormInput,
+  DeleteFormHeaderCloseButton,
+  DeleteFormHeaderContainer,
 } from "./DeleteForm.styles"
 
 const DeleteForm = (props) => {
-  const { handlePasswordConfirm, passwordConfirm } = props
+  const { handlePasswordConfirm, passwordConfirm, handleModal } = props
 
   return (
     <>
-      <DeleteFormHeader>Are you sure?</DeleteFormHeader>
+      <DeleteFormHeaderContainer>
+        <DeleteFormHeader>Are you sure?</DeleteFormHeader>
+        <DeleteFormHeaderCloseButton onClick={() => handleModal(false)}>
+          X
+        </DeleteFormHeaderCloseButton>
+      </DeleteFormHeaderContainer>
       <DeleteFormLabel>Password</DeleteFormLabel>
       <DeleteFormInput
         value={passwordConfirm}

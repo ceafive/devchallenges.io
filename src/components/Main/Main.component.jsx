@@ -254,10 +254,7 @@ const Main = (props) => {
       console.log(error)
       setMessage({ error: true, message: `Photo Not Deleted!` })
       setPhotoTaskRunning(false)
-    } finally {
-      await sleep(1000)
-      // handleModal(false)
-    }
+    } 
   }
 
   const openImageModal = (img, condition = true) => {

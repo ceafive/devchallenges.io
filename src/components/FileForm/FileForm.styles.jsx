@@ -41,3 +41,11 @@ export const FileFormUploadBoxTextInput = styled.input`
 
   filter: drop-shadow(0px 1px 6px rgba(0, 0, 0, 0.1));
 `
+
+export const FileFormHeaderCloseButton = styled.button`
+  ${tw`font-bold text-red-500 text-xl mb-4 focus:outline-none`}
+`
+
+export const FileFormHeaderContainer = styled.div`
+  ${tw`flex items-center justify-between w-full`}
+`

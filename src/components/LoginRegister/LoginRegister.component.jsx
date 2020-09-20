@@ -76,10 +76,10 @@ const LoginRegister = () => {
           authService.setUser(userData)
           sendToLocalStorage(userData)
           setAuthenticating(false)
-          setFormData(initialState)
 
           await sleep(1500).then(() => {
             history.push("/gallery")
+            setFormData(initialState)
           })
         } catch (error) {
           setAuthenticating(false)

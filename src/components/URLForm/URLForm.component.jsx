@@ -1,15 +1,27 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-import { URLFormLabel, URLFormInput, URLFormHeader } from "./URLForm.styles"
+import {
+  URLFormLabel,
+  URLFormInput,
+  URLFormHeader,
+  URLFormHeaderContainer,
+  URLFormHeaderCloseButton,
+} from "./URLForm.styles"
 
 const URLForm = (props) => {
-  const { newPhotoData, handleChange, photoTaskRunning } = props
+  const { newPhotoData, handleChange, photoTaskRunning, handleModal } = props
   return (
     <>
-      <URLFormHeader>Add a new photo</URLFormHeader>
+      <URLFormHeaderContainer>
+        <URLFormHeader>Add a new photo</URLFormHeader>
+        <URLFormHeaderCloseButton onClick={() => handleModal(false)}>
+          X
+        </URLFormHeaderCloseButton>
+      </URLFormHeaderContainer>
       <URLFormLabel>Photo Label</URLFormLabel>
       <URLFormInput
+        disabled={photoTaskRunning}
         value={newPhotoData.label}
         placeholder="A Sunny Day!!!!!"
         onChange={(evt) => handleChange("label", evt.target.value)}

@@ -10,6 +10,10 @@ export const ModalBoxContainer = styled(motion.div)`
 export const ModalBoxContent = styled(motion.div)`
   ${tw`flex flex-col justify-center relative w-620px h-367px p-10 border border-gray-500 m-auto bg-white rounded-12px`}
 `
+export const ModalBoxHeaderCloseButton = styled.button`
+  ${tw`font-bold text-red-500 text-xl mb-4 focus:outline-none`}
+`
+
 export const ModalBoxFooterContainer = styled.div`
   ${tw`flex items-center justify-between w-full`}
 `

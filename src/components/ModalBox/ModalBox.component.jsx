@@ -53,6 +53,7 @@ const ModalBox = (props) => {
       >
         {modalType === "upload" && uploadType === "url" && (
           <URLForm
+            handleModal={handleModal}
             handleChange={handleChange}
             newPhotoData={newPhotoData}
             photoTaskRunning={photoTaskRunning}
@@ -60,6 +61,7 @@ const ModalBox = (props) => {
         )}
         {modalType === "upload" && uploadType === "file" && (
           <FileForm
+            handleModal={handleModal}
             newPhotoData={newPhotoData}
             handleFileInputChange={handleFileInputChange}
             photoTaskRunning={photoTaskRunning}
@@ -67,6 +69,7 @@ const ModalBox = (props) => {
         )}
         {modalType === "delete" && (
           <DeleteForm
+            handleModal={handleModal}
             handlePasswordConfirm={handlePasswordConfirm}
             passwordConfirm={passwordConfirm}
           />
