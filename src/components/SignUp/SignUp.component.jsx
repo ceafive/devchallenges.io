@@ -1,5 +1,4 @@
 import React from "react"
-
 import {
   FormInputHeader,
   FormInputContainer,
@@ -9,7 +8,7 @@ import {
   FormButtonButton,
   FormInputText,
 } from "./SignUp.styles"
-
+ 
 import Spinner from "../Spinner/Spinner.component"
 
 const SignUp = (props) => {
@@ -37,7 +36,13 @@ const SignUp = (props) => {
           value={data.password}
           onChange={(evt) => handleInputChange("password", evt.target.value)}
         />
-        <FormInputText>Please choose your password</FormInputText>
+        <FormInputText>
+        {data.password.length === 0
+            ? `Please choose your password`
+            : data.password.length < 6
+            ? `Password is too short`
+            : ``}
+        </FormInputText>
       </FormInputContainer>
 
       <FormButtonContainer>
@@ -46,7 +51,7 @@ const SignUp = (props) => {
           type="button"
           onClick={handleAuthFlow}
         >
-          {isDisabled ? <Spinner /> : `     Sign Up`}
+          {isDisabled ? <Spinner /> : `Sign Up`}
         </FormButtonButton>
       </FormButtonContainer>
     </>
