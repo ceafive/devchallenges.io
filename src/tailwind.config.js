@@ -3,10 +3,6 @@ module.exports = {
     removeDeprecatedGapUtilities: true,
     purgeLayersByDefault: true,
   },
-  purge: {
-    content: ["./**/*.js", "./**/*.jsx"],
-    extractor: (content) => content.match(/[\w-/:px]+(?<!:)/g) || [],
-  },
   theme: {
     extend: {
       colors: {
