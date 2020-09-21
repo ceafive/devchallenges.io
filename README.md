@@ -2,6 +2,8 @@
 
 <h1 align="center">React My Unsplash</h1>
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9f2d6dc9-ba39-45eb-9e8b-ed18b4dec705/deploy-status)](https://app.netlify.com/sites/react-my-unsplash-devchallenges/deploys)
+
 <div align="center">
    Solution for a challenge from  <a href="http://devchallenges.io" target="_blank">Devchallenges.io</a>.
 </div>
@@ -50,7 +52,6 @@
 - [Firebase](https://firebase.google.com/)
 - [React Router](https://reactrouter.com/)
 
-
 ## Features
 
 <!-- List the features of your application or follow the template. Don't share the figma file here :) -->
@@ -71,7 +72,7 @@ $ git clone https://github.com/ceafive/devchallenges.io/tree/react-my-unsplash-u
 $ npm install
 
 # Register a Firebase project
-$ Create a Firebase project 
+$ Create a Firebase project
 
 # Add an .env file
 $ Add an .env file to the root of your project with your Firebase config
@@ -86,7 +87,6 @@ $ npm start
 
 - [Twin Macro Babel Plugin](https://github.com/ben-rogerson/twin.macro)
 - [React Masonry CSS](https://github.com/paulcollett/react-masonry-css)
-
 
 ## Contact
 
