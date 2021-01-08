@@ -13,6 +13,23 @@ const UserSchema = new mongoose.Schema({
     minlength: 6,
     trim: true,
   },
+  photo: {
+    type: Buffer,
+    data: [1, 2, 3],
+  },
+  name: {
+    type: String,
+    default: "Not Filled",
+  },
+  bio: {
+    type: String,
+    default: "Not Filled",
+    maxlength: 200,
+  },
+  phone: {
+    type: String,
+    default: "Not Filled",
+  },
 });
 
 UserSchema.plugin(passportLocalMongoose, {

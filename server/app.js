@@ -9,6 +9,7 @@ const dotenv = require("dotenv").config();
 
 const app = express();
 
+const profileRouter = require("./routes/profile");
 const usersRouter = require("./routes/users");
 
 // connect DB
@@ -28,5 +29,6 @@ app.use(expressSanitizer());
 require("./utils/auth");
 
 app.use("/api", usersRouter);
+app.use("/api", profileRouter);
 
 module.exports = app;

@@ -61,7 +61,9 @@ const tokenRegister = (user, res) => {
   res.status(200).json({
     auth: true,
     token,
-    user: { id: user._id, email: user.email },
+    user: {
+      id: user._id,
+    },
   });
 };
 
