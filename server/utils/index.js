@@ -1,4 +1,6 @@
 const multer = require("multer");
+const path = require("path");
+const jwt = require("jsonwebtoken");
 
 // IMAGE UPLOAD
 const fileFilter = (req, file, cb) => {
@@ -14,7 +16,7 @@ const fileFilter = (req, file, cb) => {
 };
 
 const storage = multer.diskStorage({
-  destination: "../public/uploads/",
+  destination: path.resolve(path.join(__dirname, "../public/uploads/")),
 
   filename(req, file, cb) {
     cb(null, file.originalname);
@@ -29,6 +31,22 @@ const upload = multer({
   },
 });
 
+//TOKEN SIGNUP AND USER VERIFICATION
+const tokenSend = (user, res) => {
+  const token = jwt.sign({ id: user._id }, process.env.SECRET, {
+    expiresIn: "24h", // expires in 24 hours
+    issuer: "Dev-Auth-App",
+  });
+  res.status(200).json({
+    auth: true,
+    token,
+    user: {
+      id: user._id,
+    },
+  });
+};
+
 module.exports = {
   upload,
+  tokenSend,
 };

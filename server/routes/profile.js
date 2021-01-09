@@ -20,15 +20,32 @@ router.get("/profile/:id", async function (req, res, next) {
   }
 });
 
-router.post("/", upload.single("image"), function (req, res, next) {
+router.post("/profile", upload.single("photo"), async (req, res, next) => {
   try {
-    //send image back to browser
-    const file = req.file;
-    const imagePath = file.path.replace(/^public\//, "");
-    return res.status(201).json({
-      message: "File uploaded successfully",
-      url: imagePath,
-    });
+    const { id, name, bio, phone, email, password } = req.body;
+
+    const newData = {
+      name,
+      bio,
+      phone,
+      email,
+    };
+
+    if (req.file) {
+      const img = fs.readFileSync(req.file.path);
+      const encode_image = img.toString("base64");
+
+      // Define a JSONobject for the image attributes for saving to database
+      const photo = {
+        contentType: req.file.mimetype,
+        data_url: new Buffer.from(encode_image, "base64"),
+      };
+      newData.photo = photo;
+    }
+
+    const user = await User.findByIdAndUpdate(id, newData).exec();
+
+    res.status(200).json(user);
   } catch (error) {
     console.log(error);
   }

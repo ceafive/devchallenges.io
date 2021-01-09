@@ -1,10 +1,13 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 
 import axios from '../utils/axios'
 import SocialLogin from '../components/SocialLogin'
 
 const Login = (props) => {
   const { setIsLogin } = props
+  let history = useHistory()
+
   const loginFields = [
     { name: 'email', icon: 'mail', type: 'text' },
     { name: 'password', icon: 'lock-closed', type: 'password' },
@@ -36,9 +39,10 @@ const Login = (props) => {
       const data = res.data
       const { auth } = data
       if (!auth) throw data
-      console.log(res)
+      // console.log(res)
       localStorage.setItem('dev-auth-app', JSON.stringify(data))
       setLogginIn(false)
+      history.push('/profile')
     } catch (error) {
       console.log(error)
       setError({

@@ -64,6 +64,7 @@ module.exports = {
   devtool: 'eval-cheap-module-source-map',
   devServer: {
     compress: true,
+    historyApiFallback: true,
     port: 9000,
     proxy: {
       '/': 'http://localhost:3000',

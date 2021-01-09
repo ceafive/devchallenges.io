@@ -38,7 +38,7 @@ const Register = (props) => {
       const data = res.data
       const { auth } = data
       if (!auth) throw data
-      console.log(data)
+
       localStorage.setItem('dev-auth-app', JSON.stringify(data))
       setRegistering(false)
     } catch (error) {

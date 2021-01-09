@@ -1,8 +1,9 @@
 const passport = require("passport");
 const express = require("express");
-const jwt = require("jsonwebtoken");
+
 const router = express.Router();
 
+const { tokenSend } = require("../utils");
 const User = require("../models/user");
 
 //SIGN UP LOGIC
@@ -11,7 +12,7 @@ router.post("/register", (req, res) => {
     const newUser = new User({ email: req.sanitize(req.body.email) });
     User.register(newUser, req.sanitize(req.body.password), (err, user) => {
       if (err) return res.send(err);
-      tokenRegister(user, res);
+      tokenSend(user, res);
     });
   } catch (error) {
     res.send(error);
@@ -22,7 +23,7 @@ router.post("/register", (req, res) => {
 router.post("/login", passport.authenticate("local"), (req, res) => {
   try {
     const user = req.user;
-    tokenRegister(user, res);
+    tokenSend(user, res);
   } catch (error) {
     console.log(error);
     res.status(500).send(error);
@@ -51,20 +52,5 @@ router.get(
     console.log(req.user);
   }
 );
-
-//TOKEN SIGNUP AND USER VERIFICATION
-const tokenRegister = (user, res) => {
-  const token = jwt.sign({ id: user._id }, process.env.SECRET, {
-    expiresIn: "24h", // expires in 24 hours
-    issuer: "Dev-Auth-App",
-  });
-  res.status(200).json({
-    auth: true,
-    token,
-    user: {
-      id: user._id,
-    },
-  });
-};
 
 module.exports = router;

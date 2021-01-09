@@ -1,7 +1,7 @@
 import React from 'react'
 import Dropdown from './Dropdown'
 
-const Navbar = () => {
+const Navbar = ({ userDetails }) => {
   const [showDropDown, setShowDropDown] = React.useState(false)
   return (
     <div className="w-full flex justify-between items-center py-3 px-40">
@@ -15,14 +15,14 @@ const Navbar = () => {
           onClick={() => setShowDropDown((show) => !show)}
         >
           <img
-            className="w-10 h-10 mr-2"
-            src="https://images.unsplash.com/photo-1507965613665-5fbb4cbb8399?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+            className="h-10 mr-2 rounded-lg"
+            src={userDetails['photo']}
             alt="profile-picture"
           />
-          <p className="mr-4">Castro Agbo</p>
+          <p className="mr-4">{userDetails['name']}</p>
           <ion-icon name="caret-down-outline"></ion-icon>
         </div>
-        {showDropDown && <Dropdown />}
+        {showDropDown && <Dropdown setShowDropDown={setShowDropDown} />}
       </div>
     </div>
   )
