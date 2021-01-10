@@ -48,27 +48,27 @@ const ProfileDetails = ({ fields, userDetails, setUserDetails }) => {
   if (!userAuth) return null
 
   return (
-    <div className="mt-5 md:mx-48 lg:mx-56">
+    <div className="mt-5 md:mx-20 xl:mx-56">
       <div className="text-center">
-        <h1 className="text-4xl">Personal Info</h1>
+        <h1 className="text-2xl lg:text-4xl">Personal Info</h1>
         <p className="text-gray-500 font-light">
           Basic info like your name and photo
         </p>
       </div>
       <div
         id="main"
-        className="my-5 m-20 pt-10 border border-gray-300 rounded-2xl"
+        className="mx-5 mt-10 lg:mx-20 pb-5 lg:pt-10 border border-gray-300 rounded-2xl"
       >
         <div className="border-b border-gray-300">
-          <div className="flex w-full py-5 justify-between items-center px-10">
+          <div className="flex w-full py-5 justify-between items-center px-4 lg:px-10">
             <div>
-              <h1 className="text-4xl">Profile</h1>
+              <h1 className="text-2xl lg:text-4xl">Profile</h1>
               <p className="text-gray-500 font-light">
                 Some info may be visible to other people
               </p>
             </div>
             <Link to="/profile/edit-profile">
-              <button className="text-gray-400 border border-gray-400 px-12 py-2 rounded-xl focus:outline-none">
+              <button className="text-gray-400 border border-gray-400 px-6 lg:px-12 py-2 rounded-xl focus:outline-none">
                 Edit
               </button>
             </Link>
@@ -83,7 +83,7 @@ const ProfileDetails = ({ fields, userDetails, setUserDetails }) => {
                 index !== fields.length - 1 && 'border-b border-gray-300'
               }`}
             >
-              <div className="flex w-full py-5 items-center px-10">
+              <div className="flex w-full py-5 justify-between lg:justify-start items-center px-2 lg:px-10">
                 <div className="w-5/12">
                   <h1 className="text-gray-300 uppercase">{field.name}</h1>
                 </div>

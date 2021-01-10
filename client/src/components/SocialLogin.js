@@ -21,7 +21,7 @@ const SocialLogin = () => {
       render: ({ name }) => {
         return (
           <GoogleLogin
-            clientId="229604138683-tu719sktt7ic2ge17a04f89qkjt9u7kd.apps.googleusercontent.com"
+            clientId={process.env.GOOGLE_CLIENT_ID}
             onSuccess={(response) => {
               const { profileObj } = response
               siginIn(profileObj, 'google')
@@ -47,7 +47,7 @@ const SocialLogin = () => {
         return (
           <FacebookLogin
             autoLoad={false}
-            appId="1079001142513208"
+            appId={process.env.FACEBOOK_APP_ID}
             fields="name,email,picture.type(large)"
             callback={(response) => {
               siginIn(response, 'facebook')
@@ -143,7 +143,7 @@ const SocialLogin = () => {
       const user = resUser.data
       siginIn(user, 'github')
     } catch (error) {
-      console.log(error.response)
+      console.log(error.response.data)
     }
   }
 

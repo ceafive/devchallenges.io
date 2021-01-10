@@ -24,8 +24,8 @@ router.post("/profile", upload.single("photo"), async (req, res) => {
   try {
     const { id, name, bio, phone, email, password, image } = req.body;
 
-    // console.log({ id, name, bio, phone, email, password, image });
-    // return
+    console.log({ id, name, bio, phone, email, password, image });
+    // return;
 
     const newData = {
       name,

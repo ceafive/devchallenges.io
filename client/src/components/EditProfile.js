@@ -67,24 +67,29 @@ const EditProfile = ({ fields, userDetails, setUserDetails }) => {
 
   const handleImageChange = (e) => {
     const files = e.target.files || e.dataTransfer.files
-    if (!files.length) return
+    if (!files.length) return setDisableButton(true)
     const file = files[0]
     const allowedTypes = ['image/jpg', 'image/jpeg', 'image/png']
 
     if (!allowedTypes.includes(file.type)) {
+      setDisableButton(true)
       return setError({
         status: true,
         message: 'Only images with ext .jpg and .jpeg are accepted',
       })
     }
-    if (file.size > 5000000) {
+    if (file.size > 500000) {
+      setDisableButton(true)
       return setError({
         status: true,
         message: 'Image too large, select image below 500KB',
       })
     }
 
-    if (!file) return setError({ status: true, message: 'Please select image' })
+    if (!file) {
+      setDisableButton(true)
+      return setError({ status: true, message: 'Please select image' })
+    }
 
     setError({
       status: false,
@@ -109,6 +114,7 @@ const EditProfile = ({ fields, userDetails, setUserDetails }) => {
     if (typeof formData.photo !== 'string') {
       newFormData.append('photo', formData.photo)
     } else {
+      newFormData.delete('photo')
       newFormData.append('image', formData.photo)
     }
 
@@ -135,78 +141,117 @@ const EditProfile = ({ fields, userDetails, setUserDetails }) => {
   }
 
   return (
-    <div
-      id="main"
-      className="mt-5 m-20 pt-10 border border-gray-300 rounded-2xl"
-    >
-      <div className="">
-        <div className="flex w-full justify-between items-center px-10">
+    <div className="mt-5 md:mx-20 xl:mx-56">
+      <div
+        id="main"
+        className="mx-5 my-10 lg:mx-20 pb-5 lg:pt-10 border border-gray-300 rounded-2xl"
+      >
+        <div className="flex w-full py-5 justify-between items-center px-4 lg:px-10">
           <div>
-            <h1 className="text-4xl">Change Info</h1>
+            <h1 className="text-2xl lg:text-4xl">Change Info</h1>
             <p className="text-gray-500 font-light">
               Changes will be reflected to every service
             </p>
           </div>
         </div>
-      </div>
 
-      <div className="w-full max-w-md">
-        <form className="px-10 pt-6" encType="multipart/form-data">
-          {fields.map((field, index) => {
-            const lowercaseFieldName = field.name.toLowerCase()
+        <div className="w-full max-w-lg">
+          <form
+            className="px-4 lg:px-10 pt-2 lg:pt-6"
+            encType="multipart/form-data"
+          >
+            {fields.map((field, index) => {
+              const lowercaseFieldName = field.name.toLowerCase()
 
-            return (
-              <div key={index} className="mb-2">
-                {lowercaseFieldName === 'photo' ? (
-                  <>
-                    <label className="block text-gray-700 text-sm font-semibold mb-1">
-                      {field.name}
-                    </label>
-                    <div className="flex justify-between items-center border rounded w-full py-2 px-3">
-                      <img
-                        className="h-20 mr-2 rounded-lg"
-                        src={formData['photo']}
-                        alt="profile-picture"
-                      />
-                      {!isUploadPhoto.show && (
-                        <div className="flex w-full justify-between items-center">
-                          <button
-                            className={`bg-blue-500 px-4 py-2 text-white text-sm rounded-xl focus:outline-none`}
-                            onClick={() =>
-                              setIsUploadPhoto({
-                                show: true,
-                                status: true,
-                              })
-                            }
-                          >
-                            Upload Photo
-                          </button>
-                          <button
-                            className={`bg-green-500 px-4 py-2 text-white text-sm rounded-xl focus:outline-none`}
-                            onClick={() =>
-                              setIsUploadPhoto({
-                                show: true,
-                                status: false,
-                              })
-                            }
-                          >
-                            Enter URL
-                          </button>
-                        </div>
-                      )}
-                      {isUploadPhoto.show && isUploadPhoto.status && (
-                        <input
-                          className="appearance-none focus:outline-none b"
-                          type="file"
-                          name="image"
-                          accept="['image/jpg', 'image/jpeg', 'image/png']"
-                          onChange={handleImageChange}
+              return (
+                <div key={index} className="mb-2">
+                  {lowercaseFieldName === 'photo' ? (
+                    <>
+                      <label className="block text-gray-700 text-sm font-semibold mb-1">
+                        {field.name}
+                      </label>
+                      <div className="flex justify-between items-center border rounded w-full py-2 px-1 lg:px-3">
+                        <img
+                          className="w-20 lg:w-auto h-20 mr-2 rounded-lg"
+                          src={formData['photo']}
+                          alt="profile-picture"
                         />
-                      )}
-                      {isUploadPhoto.show && !isUploadPhoto.status && (
+                        {!isUploadPhoto.show && (
+                          <div className="flex w-full items-center">
+                            <button
+                              className={`bg-blue-500 px-4 py-2 mr-1 text-white text-xs lg:text-sm rounded-xl focus:outline-none`}
+                              onClick={() =>
+                                setIsUploadPhoto({
+                                  show: true,
+                                  status: true,
+                                })
+                              }
+                            >
+                              Upload Photo
+                            </button>
+                            <button
+                              className={`bg-green-500 px-4 py-2 text-white text-xs lg:text-sm rounded-xl focus:outline-none`}
+                              onClick={() =>
+                                setIsUploadPhoto({
+                                  show: true,
+                                  status: false,
+                                })
+                              }
+                            >
+                              Enter URL
+                            </button>
+                          </div>
+                        )}
+                        {isUploadPhoto.show && isUploadPhoto.status && (
+                          <input
+                            className="appearance-none focus:outline-none b"
+                            type="file"
+                            name="image"
+                            accept="['image/jpg', 'image/jpeg', 'image/png']"
+                            onChange={handleImageChange}
+                          />
+                        )}
+                        {isUploadPhoto.show && !isUploadPhoto.status && (
+                          <div className="flex flex-wrap w-full">
+                            <label className="w-full block text-gray-700 text-sm font-semibold mb-1">
+                              Enter URL
+                            </label>
+                            <input
+                              className="appearance-none w-full text-gray-700 shadow rounded border py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+                              type="text"
+                              onChange={(e) =>
+                                setFormData((data) => ({
+                                  ...data,
+                                  [lowercaseFieldName]: e.target.value,
+                                }))
+                              }
+                            />
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <label className="block text-gray-700 text-sm font-semibold mb-1">
+                        {field.name}
+                      </label>
+                      <div
+                        key={field.name}
+                        className="flex items-center shadow rounded border py-2 px-3"
+                      >
                         <input
-                          className="appearance-none w-full text-gray-700 shadow rounded border py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
-                          type="text"
+                          className="appearance-none w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          type={
+                            lowercaseFieldName === 'password' && !showPassword
+                              ? 'password'
+                              : 'text'
+                          }
+                          value={formData[lowercaseFieldName]}
+                          placeholder={
+                            lowercaseFieldName === 'password'
+                              ? 'Enter your new password or leave blank'
+                              : field.name
+                          }
                           onChange={(e) =>
                             setFormData((data) => ({
                               ...data,
@@ -214,79 +259,48 @@ const EditProfile = ({ fields, userDetails, setUserDetails }) => {
                             }))
                           }
                         />
-                      )}
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <label className="block text-gray-700 text-sm font-semibold mb-1">
-                      {field.name}
-                    </label>
-                    <div
-                      key={field.name}
-                      className="flex items-center shadow rounded border py-2 px-3"
-                    >
-                      <input
-                        className="appearance-none w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        type={
-                          lowercaseFieldName === 'password' && !showPassword
-                            ? 'password'
-                            : 'text'
-                        }
-                        value={formData[lowercaseFieldName]}
-                        placeholder={
-                          lowercaseFieldName === 'password'
-                            ? 'Enter your new password or leave blank'
-                            : field.name
-                        }
-                        onChange={(e) =>
-                          setFormData((data) => ({
-                            ...data,
-                            [lowercaseFieldName]: e.target.value,
-                          }))
-                        }
-                      />
-                      {lowercaseFieldName === 'password' && (
-                        <ion-icon
-                          className="cursor-pointer"
-                          size="medium"
-                          name={
-                            showPassword ? 'eye-off-outline' : 'eye-outline'
-                          }
-                          onClick={() => setShowPassword((show) => !show)}
-                        />
-                      )}
-                    </div>
-                  </>
-                )}
-              </div>
-            )
-          })}
-        </form>
-        {error.status && (
-          <p className="text-red-500 text-center">{error.message}</p>
-        )}
-      </div>
+                        {lowercaseFieldName === 'password' && (
+                          <ion-icon
+                            className="cursor-pointer"
+                            size="medium"
+                            name={
+                              showPassword ? 'eye-off-outline' : 'eye-outline'
+                            }
+                            onClick={() => setShowPassword((show) => !show)}
+                          />
+                        )}
+                      </div>
+                    </>
+                  )}
+                </div>
+              )
+            })}
+          </form>
+          {error.status && (
+            <p className="text-red-500 text-center">{error.message}</p>
+          )}
+        </div>
 
-      <button
-        disabled={loading || disableButton}
-        className={`px-10 py-2 text-white my-5 ml-10 rounded-xl focus:outline-none ${
-          loading || disableButton ? 'bg-gray-500' : 'bg-blue-500'
-        }`}
-        onClick={onSubmit}
-      >
-        Save
-      </button>
-      <Link to="/profile">
         <button
-          disabled={loading}
-          className={`px-10 py-2 text-white my-5 ml-10 rounded-xl focus:outline-none ${
-            loading ? 'bg-gray-500' : 'bg-red-500'
+          disabled={loading || disableButton}
+          className={`lg:px-10 px-4 py-2 text-white my-1 lg:my-5 ml-5 lg:ml-10 rounded-xl focus:outline-none ${
+            loading || disableButton ? 'bg-gray-500' : 'bg-blue-500'
           }`}
+          onClick={onSubmit}
         >
-          Cancel
+          Save
         </button>
-      </Link>
+        <Link to="/profile">
+          <button
+            disabled={loading}
+            className={`lg:px-10 px-4 py-2 text-white my-1 lg:my-5 ml-5 lg:ml-10 rounded-xl focus:outline-none ${
+              loading ? 'bg-gray-500' : 'bg-red-500'
+            }`}
+          >
+            Cancel
+          </button>
+        </Link>
+      </div>
     </div>
   )
 }

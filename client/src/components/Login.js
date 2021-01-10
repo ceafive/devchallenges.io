@@ -21,6 +21,11 @@ const Login = (props) => {
   })
 
   const [showPassword, setShowPassword] = React.useState(false)
+  const [disableButton, setDisableButton] = React.useState(false)
+
+  React.useEffect(() => {
+    handleValidation()
+  }, [formData])
 
   const loginFields = [
     { name: 'email', icon: 'mail', type: 'text' },
@@ -30,6 +35,23 @@ const Login = (props) => {
       type: showPassword ? 'text' : 'password',
     },
   ]
+
+  const handleValidation = () => {
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+    Object.keys(formData).map((dataKey) => {
+      if (dataKey === 'email') {
+        if (!formData[dataKey] || !emailRegex.test(formData[dataKey])) {
+          return setDisableButton(true)
+        } else return setDisableButton(false)
+      }
+
+      if (dataKey === 'password') {
+        if (!formData[dataKey] || formData[dataKey].length < 6) {
+          return setDisableButton(true)
+        }
+      } else return setDisableButton(false)
+    })
+  }
 
   const login = async () => {
     try {
@@ -100,8 +122,10 @@ const Login = (props) => {
           <p className="text-center text-red-500">{error.message}</p>
         )}
         <button
-          disabled={logginIn}
-          className="w-full bg-blue-700 text-white rounded-lg py-3 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
+          disabled={logginIn || disableButton}
+          className={`${
+            logginIn || disableButton ? 'bg-gray-100' : 'bg-blue-700'
+          } w-full  text-white rounded-lg py-3 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50`}
           onClick={login}
         >
           Login

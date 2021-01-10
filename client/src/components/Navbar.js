@@ -4,7 +4,7 @@ import Dropdown from './Dropdown'
 const Navbar = ({ userDetails }) => {
   const [showDropDown, setShowDropDown] = React.useState(false)
   return (
-    <div className="w-full flex justify-between items-center py-3 px-40">
+    <div className="w-full flex justify-between items-center py-3 px-4 lg:px-40">
       <div>
         <h1>My Authentication App</h1>
       </div>
@@ -19,7 +19,9 @@ const Navbar = ({ userDetails }) => {
             src={userDetails['photo']}
             alt="profile-picture"
           />
-          <p className="mr-4">{userDetails['name'] || userDetails['email']}</p>
+          <p className="mr-4 hidden lg:block">
+            {userDetails['name'] || userDetails['email']}
+          </p>
           <ion-icon name="caret-down-outline"></ion-icon>
         </div>
         {showDropDown && <Dropdown setShowDropDown={setShowDropDown} />}

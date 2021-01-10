@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import ProfileDetails from './components/ProfileDetails'
 import EditProfile from './components/EditProfile'
 import Authenticate from './components/Authenticate'
+import Footer from './components/Footer'
 
 const fields = [
   { name: 'Photo' },
@@ -28,19 +29,18 @@ const App = () => {
   const [userDetails, setUserDetails] = React.useState(initialDetails)
 
   return (
-    <div className="font-body h-screen">
+    <div className="font-body min-h-screen">
       <Switch>
         <Route path="/profile">
           <Navbar userDetails={userDetails} />
           <Switch>
             <Route path="/profile/edit-profile">
-              <div className="mt-5 mx-56 md:mx-20">
-                <EditProfile
-                  fields={fields}
-                  userDetails={userDetails}
-                  setUserDetails={setUserDetails}
-                />
-              </div>
+              <EditProfile
+                fields={fields}
+                userDetails={userDetails}
+                setUserDetails={setUserDetails}
+              />
+              <Footer />
             </Route>
             <Route path="/profile">
               <ProfileDetails
@@ -48,6 +48,7 @@ const App = () => {
                 userDetails={userDetails}
                 setUserDetails={setUserDetails}
               />
+              <Footer />
             </Route>
           </Switch>
         </Route>
