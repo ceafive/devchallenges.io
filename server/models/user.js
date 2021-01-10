@@ -14,8 +14,9 @@ const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
-    required: true,
+    required: [true, "Enter a valid email"],
     trim: true,
+    match: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
   },
   password: {
     type: String,
@@ -23,7 +24,7 @@ const UserSchema = new mongoose.Schema({
     trim: true,
   },
   photo: {
-    type: Map,
+    type: mongoose.Schema.Types.Mixed,
     default: {
       contentType: "image/jpg",
       data_url: new Buffer.from(encode_image, "base64"),

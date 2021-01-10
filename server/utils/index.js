@@ -37,7 +37,7 @@ const tokenSend = (user, res) => {
     expiresIn: "24h", // expires in 24 hours
     issuer: "Dev-Auth-App",
   });
-  res.status(200).json({
+  return res.status(200).json({
     auth: true,
     token,
     user: {

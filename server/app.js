@@ -26,7 +26,7 @@ app.use(cors());
 app.use(expressSanitizer());
 
 //configure PassportJS
-require("./utils/auth");
+// require("./utils/auth");
 
 app.use("/api", usersRouter);
 app.use("/api", profileRouter);

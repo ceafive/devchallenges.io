@@ -8,11 +8,6 @@ const Login = (props) => {
   const { setIsLogin } = props
   let history = useHistory()
 
-  const loginFields = [
-    { name: 'email', icon: 'mail', type: 'text' },
-    { name: 'password', icon: 'lock-closed', type: 'password' },
-  ]
-
   const initialData = {
     email: '',
     password: '',
@@ -25,6 +20,17 @@ const Login = (props) => {
     message: '',
   })
 
+  const [showPassword, setShowPassword] = React.useState(false)
+
+  const loginFields = [
+    { name: 'email', icon: 'mail', type: 'text' },
+    {
+      name: 'password',
+      icon: 'lock-closed',
+      type: showPassword ? 'text' : 'password',
+    },
+  ]
+
   const login = async () => {
     try {
       setError({
@@ -36,18 +42,20 @@ const Login = (props) => {
       const res = await axios.post('/login', {
         ...formData,
       })
+
       const data = res.data
       const { auth } = data
       if (!auth) throw data
-      // console.log(res)
+
+      // set user in localstorage
       localStorage.setItem('dev-auth-app', JSON.stringify(data))
       setLogginIn(false)
       history.push('/profile')
     } catch (error) {
-      console.log(error)
+      // console.log(error.response.data)
       setError({
         status: true,
-        message: error.message,
+        message: error.response.data.message,
       })
       setLogginIn(false)
     }
@@ -65,7 +73,6 @@ const Login = (props) => {
             >
               <ion-icon size="large" name={`${field.icon}-outline`}></ion-icon>
               <input
-                type="text"
                 placeholder={field.name}
                 name={field.name}
                 value={formData[field.name]}
@@ -78,10 +85,20 @@ const Login = (props) => {
                 }}
                 className="bg-transparent placeholder-gray-700 w-full focus:outline-none p-2"
               />
+              {field.name === 'password' && (
+                <ion-icon
+                  className="cursor-pointer"
+                  size="large"
+                  name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                  onClick={() => setShowPassword((show) => !show)}
+                ></ion-icon>
+              )}
             </div>
           )
         })}
-        {error.status && <p className="text-center">{error.message}</p>}
+        {error.status && (
+          <p className="text-center text-red-500">{error.message}</p>
+        )}
         <button
           disabled={logginIn}
           className="w-full bg-blue-700 text-white rounded-lg py-3 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"

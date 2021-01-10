@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route, useRouteMatch } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 
 import Navbar from './components/Navbar'
 import ProfileDetails from './components/ProfileDetails'
@@ -27,20 +27,14 @@ const initialDetails = {
 const App = () => {
   const [userDetails, setUserDetails] = React.useState(initialDetails)
 
-  const match = useRouteMatch()
-
-  const routeUrl = match.url
-
-  console.log(match)
-
   return (
-    <div className="font-body">
+    <div className="font-body h-screen">
       <Switch>
         <Route path="/profile">
           <Navbar userDetails={userDetails} />
           <Switch>
             <Route path="/profile/edit-profile">
-              <div className="mt-5 mx-56">
+              <div className="mt-5 mx-56 md:mx-20">
                 <EditProfile
                   fields={fields}
                   userDetails={userDetails}
@@ -49,20 +43,11 @@ const App = () => {
               </div>
             </Route>
             <Route path="/profile">
-              <div className="mt-5 mx-56">
-                <div className="text-center">
-                  <h1 className="text-4xl">Personal Info</h1>
-                  <p className="text-gray-500 font-light">
-                    Basic info like your name and photo
-                  </p>
-                </div>
-                <ProfileDetails
-                  initialDetails={initialDetails}
-                  fields={fields}
-                  userDetails={userDetails}
-                  setUserDetails={setUserDetails}
-                />
-              </div>
+              <ProfileDetails
+                fields={fields}
+                userDetails={userDetails}
+                setUserDetails={setUserDetails}
+              />
             </Route>
           </Switch>
         </Route>

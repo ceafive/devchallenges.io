@@ -1,10 +1,14 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
+
 import axios from '../utils/axios'
 
 import SocialLogin from '../components/SocialLogin'
 
 const Register = (props) => {
   const { setIsLogin } = props
+  let history = useHistory()
+
   const loginFields = [
     { name: 'email', icon: 'mail', type: 'text' },
     { name: 'password', icon: 'lock-closed', type: 'password' },
@@ -23,6 +27,28 @@ const Register = (props) => {
     status: false,
     message: '',
   })
+  const [disableButton, setDisableButton] = React.useState(false)
+
+  React.useEffect(() => {
+    handleValidation()
+  }, [formData])
+
+  const handleValidation = () => {
+    const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+    Object.keys(formData).map((dataKey) => {
+      if (dataKey === 'email') {
+        if (!formData[dataKey] || !emailRegex.test(formData[dataKey])) {
+          return setDisableButton(true)
+        } else return setDisableButton(false)
+      }
+
+      if (dataKey === 'password') {
+        if (!formData[dataKey] || formData[dataKey].length < 6) {
+          return setDisableButton(true)
+        }
+      } else return setDisableButton(false)
+    })
+  }
 
   const register = async () => {
     try {
@@ -41,13 +67,15 @@ const Register = (props) => {
 
       localStorage.setItem('dev-auth-app', JSON.stringify(data))
       setRegistering(false)
+      history.push('/profile')
     } catch (error) {
       console.log(error)
       setError({
         status: true,
-        message: error.message,
+        message: error.response.data.message,
       })
       setRegistering(false)
+      // setFormData(initialData)
     }
   }
 
@@ -82,10 +110,14 @@ const Register = (props) => {
             </div>
           )
         })}
-        {error.status && <p className="text-center">{error.message}</p>}
+        {error.status && (
+          <p className="text-center text-red-500">{error.message}</p>
+        )}
         <button
-          disabled={registering}
-          className="w-full bg-blue-700 text-white rounded-lg py-3 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
+          disabled={registering || disableButton}
+          className={`${
+            registering || disableButton ? 'bg-gray-100' : 'bg-blue-700'
+          } w-full  text-white rounded-lg py-3 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50`}
           onClick={register}
         >
           Start coding now
