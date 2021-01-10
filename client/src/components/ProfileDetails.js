@@ -1,8 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import { useHistory } from 'react-router-dom'
-
 import axios from '../utils/axios'
 
 const ProfileDetails = ({ fields, userDetails, setUserDetails }) => {
@@ -12,8 +10,6 @@ const ProfileDetails = ({ fields, userDetails, setUserDetails }) => {
     status: false,
     message: '',
   })
-
-  const history = useHistory()
 
   const fetchUserDetails = async () => {
     if (!userAuth) return history.replace('/')
@@ -31,7 +27,6 @@ const ProfileDetails = ({ fields, userDetails, setUserDetails }) => {
       }
 
       delete newData.password
-
       setUserDetails((data) => ({
         ...data,
         ...newData,

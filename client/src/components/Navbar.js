@@ -19,7 +19,7 @@ const Navbar = ({ userDetails }) => {
             src={userDetails['photo']}
             alt="profile-picture"
           />
-          <p className="mr-4">{userDetails['name']}</p>
+          <p className="mr-4">{userDetails['name'] || userDetails['email']}</p>
           <ion-icon name="caret-down-outline"></ion-icon>
         </div>
         {showDropDown && <Dropdown setShowDropDown={setShowDropDown} />}

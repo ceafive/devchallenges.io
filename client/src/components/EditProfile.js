@@ -41,7 +41,6 @@ const EditProfile = ({ fields, userDetails, setUserDetails }) => {
 
       if (dataKey === 'password') {
         if (formData['password'] && formData['password'].length < 6) {
-          console.log('hit here password')
           return setDisableButton(true)
         }
       }
@@ -126,6 +125,7 @@ const EditProfile = ({ fields, userDetails, setUserDetails }) => {
       setLoading(false)
       history.push('/profile')
     } catch (error) {
+      setLoading(false)
       console.log(error.response.data.message)
       setError({
         status: true,
@@ -236,7 +236,7 @@ const EditProfile = ({ fields, userDetails, setUserDetails }) => {
                         value={formData[lowercaseFieldName]}
                         placeholder={
                           lowercaseFieldName === 'password'
-                            ? 'Enter you new password or leave blank'
+                            ? 'Enter your new password or leave blank'
                             : field.name
                         }
                         onChange={(e) =>

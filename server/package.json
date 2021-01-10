@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www -e js,pug",
-    "dev": "DEBUG=authentication-app:* npm start"
+    "start": "node ./bin/www",
+    "dev": "DEBUG=authentication-app:* nodemon ./bin/www -e js"
   },
   "dependencies": {
     "argon2": "^0.27.1",

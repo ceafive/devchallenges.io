@@ -32,16 +32,16 @@ const UserSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    default: "Enter your name...",
   },
   bio: {
     type: String,
-    default: "Enter your bio...",
     maxlength: 200,
   },
   phone: {
     type: String,
-    default: "Enter your phone number...",
+  },
+  loginType: {
+    type: String,
   },
 });
 

@@ -1,11 +1,20 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import axios from '../utils/axios'
 
 import { GoogleLogin } from 'react-google-login'
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
-import GitHubLogin from 'react-github-login'
+
+import GitHubLogin from 'react-login-github'
 
 const SocialLogin = () => {
+  let history = useHistory()
+
+  const [error, setError] = React.useState({
+    status: false,
+    message: '',
+  })
+
   const logos = [
     {
       name: 'google',
@@ -13,6 +22,12 @@ const SocialLogin = () => {
         return (
           <GoogleLogin
             clientId="229604138683-tu719sktt7ic2ge17a04f89qkjt9u7kd.apps.googleusercontent.com"
+            onSuccess={(response) => {
+              const { profileObj } = response
+              siginIn(profileObj, 'google')
+            }}
+            onFailure={() => console.log('failed')}
+            cookiePolicy={'none'}
             render={(renderProps) => (
               <button
                 className="focus:outline-none"
@@ -22,9 +37,6 @@ const SocialLogin = () => {
                 <ion-icon size="large" name={`logo-${name}`}></ion-icon>
               </button>
             )}
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={'none'}
           />
         )
       },
@@ -36,8 +48,10 @@ const SocialLogin = () => {
           <FacebookLogin
             autoLoad={false}
             appId="1079001142513208"
-            fields="name,email"
-            callback={responseGoogle}
+            fields="name,email,picture.type(large)"
+            callback={(response) => {
+              siginIn(response, 'facebook')
+            }}
             render={(renderProps) => (
               <button
                 className="focus:outline-none"
@@ -58,33 +72,86 @@ const SocialLogin = () => {
         return (
           <GitHubLogin
             className="focus:outline-none"
-            clientId="4956b6264707078f20e4"
-            redirectUri=""
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
+            clientId={process.env.GITHUB_CLIENT_ID}
+            scope="user"
+            onSuccess={responseGithub}
+            onFailure={() => console.log('failed')}
           >
-            <ion-icon size="large" name={`logo-${name}`}></ion-icon>
+            <ion-icon size="large" name={`logo-${name}`} />
           </GitHubLogin>
         )
       },
     },
   ]
 
-  const siginIn = async (route) => {
+  const siginIn = async (response, loginType) => {
     try {
-      const res = await axios.get(`/${route}`)
-      console.log(res)
+      // add login type to response
+      response.loginType = loginType
+      const res = await axios.post('/social', response)
+      const data = res.data
+      const { auth } = data
+      if (!auth) throw data
+
+      // set user in localstorage
+      localStorage.setItem('dev-auth-app', JSON.stringify(data))
+
+      history.push('/profile')
     } catch (error) {
-      console.log(error)
+      console.log(error.response.data.message)
+      setError({
+        status: true,
+        message: error.response.data.message,
+      })
     }
   }
 
-  const responseGoogle = (response) => {
-    console.log(response)
+  const responseGithub = async (response) => {
+    const data = new FormData()
+    data.append('client_id', process.env.GITHUB_CLIENT_ID)
+    data.append('client_secret', process.env.GITHUB_CLIENT_SECRET)
+    data.append('code', response.code)
+    data.append('redirect_uri', process.env.GITHUB_REDIRECT_URI)
+
+    try {
+      const resToken = await axios.post(
+        'https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token',
+        data
+      )
+      const token = resToken.data
+      const splitToken = token.split('&')
+
+      let access_token = ''
+      splitToken.forEach((data) => {
+        if (data.includes('access_token')) {
+          const split = data.split('=')
+          return (access_token = split[1])
+        }
+      })
+
+      const resUser = await axios.post(
+        `https://cors-anywhere.herokuapp.com/https://api.github.com/user`,
+        null,
+        {
+          headers: {
+            Accept: `application/vnd.github.v3+json`,
+            Authorization: `token ${access_token}`,
+            'X-OAuth-Scopes': `user`,
+          },
+        }
+      )
+      const user = resUser.data
+      siginIn(user, 'github')
+    } catch (error) {
+      console.log(error.response)
+    }
   }
 
   return (
     <>
+      {error.status && (
+        <p className="text-center text-red-500">{error.message}</p>
+      )}
       <div className="flex justify-between px-10">
         {logos.map((logo) => {
           return (

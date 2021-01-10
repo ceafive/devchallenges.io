@@ -63,9 +63,19 @@ router.post("/profile", upload.single("photo"), async (req, res) => {
       fs.unlinkSync(req.file.path);
     }
 
-    const user = await User.findByIdAndUpdate(id, newData).exec();
+    User.findByIdAndUpdate(id, newData, (err, user) => {
+      if (err) {
+        if (err.code && err.code == 11000) {
+          const field = Object.keys(err.keyValue);
 
-    res.status(200).json(user);
+          return res
+            .status(409)
+            .json({ message: `An account with that ${field} already exists.` });
+        }
+      }
+
+      res.status(200).json(user);
+    });
   } catch (error) {
     console.log(error);
   }
