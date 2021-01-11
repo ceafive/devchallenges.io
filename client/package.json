@@ -2,7 +2,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack serve --env development --config webpack.dev.config.js --hot",
-    "build": "webpack --config webpack.prod.config.js --progress"
+    "build": "webpack --config webpack.prod.config.js"
   },
   "dependencies": {
     "@babel/core": "^7.12.9",

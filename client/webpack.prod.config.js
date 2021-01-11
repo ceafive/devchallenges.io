@@ -5,7 +5,7 @@ const base = require('./webpack.base.config')
 
 const config = Object.assign({}, base, {
   mode: 'production',
-  devtool: 'cheap-module-source-map',
+  devtool: 'source-map',
   optimization: {
     splitChunks: {
       chunks: 'all',
