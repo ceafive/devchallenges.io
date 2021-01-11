@@ -8,11 +8,11 @@
     "dev:server": "DEBUG=authentication-app:* nodemon ./bin/www -e js",
     "dev": "concurrently \"npm dev:server\" \"npm dev:client\"",
     "client": "cd client && yarn",
-    "server": "cd server && yarn --only=dev --no-shrinkwrap",
+    "server": "cd server && yarn",
     "build": "cd client && npm run build",
     "start": "cd server && npm start",
-    "heroku-prebuild": "cd client yarn --dev",
-    "heroku-postbuild": "yarn && npm run client && npm run server && npm run build"
+    "heroku-prebuild": "npm run client && npm run server",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
