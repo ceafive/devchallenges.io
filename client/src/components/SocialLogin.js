@@ -26,7 +26,7 @@ const SocialLogin = () => {
               const { profileObj } = response
               siginIn(profileObj, 'google')
             }}
-            onFailure={(err) => console.log({ err })}
+            onFailure={(err) => console.log(err)}
             cookiePolicy={'none'}
             render={(renderProps) => (
               <button
@@ -114,14 +114,10 @@ const SocialLogin = () => {
     data.append('redirect_uri', process.env.GITHUB_REDIRECT_URI)
 
     try {
-      let tokenAPI = ''
-      if (process.env.NODE_ENV === 'production')
-        tokenAPI = 'https://github.com/login/oauth/access_token'
-      else
-        tokenAPI =
-          'https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token'
-
-      const resToken = await axios.post(tokenAPI, data)
+      const resToken = await axios.post(
+        'https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token',
+        data
+      )
       const token = resToken.data
       const splitToken = token.split('&')
 
@@ -133,20 +129,17 @@ const SocialLogin = () => {
         }
       })
 
-      let userAPI = ''
-      if (process.env.NODE_ENV === 'production')
-        userAPI = 'https://api.github.com/user'
-      else
-        userAPI =
-          'https://cors-anywhere.herokuapp.com/https://api.github.com/user'
-
-      const resUser = await axios.post(userAPI, null, {
-        headers: {
-          Accept: `application/vnd.github.v3+json`,
-          Authorization: `token ${access_token}`,
-          'X-OAuth-Scopes': `user`,
-        },
-      })
+      const resUser = await axios.post(
+        `https://cors-anywhere.herokuapp.com/https://api.github.com/user`,
+        null,
+        {
+          headers: {
+            Accept: `application/vnd.github.v3+json`,
+            Authorization: `token ${access_token}`,
+            'X-OAuth-Scopes': `user`,
+          },
+        }
+      )
       const user = resUser.data
       siginIn(user, 'github')
     } catch (error) {
