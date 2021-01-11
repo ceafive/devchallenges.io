@@ -7,11 +7,11 @@
     "dev:client": "webpack serve --mode development --env development --config webpack.dev.config.js --hot",
     "dev:server": "DEBUG=authentication-app:* nodemon ./bin/www -e js",
     "dev": "concurrently \"npm dev:server\" \"npm dev:client\"",
-    "client": "cd client && npm install",
-    "server": "cd server && npm install --only=dev --no-shrinkwrap",
-    "build": "cd client && webpack --mode production --config webpack.prod.config.js --progress --hide-modules",
-    "start": "cross-env NODE_ENV=production cd server && node node ./bin/www",
-    "heroku-postbuild": "npm run server && npm run client && npm run build"
+    "client": "cd client && yarn",
+    "server": "cd server && yarn --only=dev --no-shrinkwrap",
+    "build": "webpack --config webpack.prod.config.js --progress",
+    "start": "cd server && npm start",
+    "heroku-postbuild": "yarn && npm run server && npm run client && cd client && npm run build"
   },
   "repository": {
     "type": "git",

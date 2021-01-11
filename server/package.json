@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "DEBUG=authentication-app:* node ./bin/www",
     "dev": "DEBUG=authentication-app:* nodemon ./bin/www -e js"
   },
   "dependencies": {
