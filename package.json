@@ -11,7 +11,8 @@
     "server": "cd server && yarn --only=dev --no-shrinkwrap",
     "build": "cd client && npm run build",
     "start": "cd server && npm start",
-    "heroku-postbuild": "yarn && npm run server && npm run client && npm run build"
+    "heroku-prebuild": "cd client yarn --dev",
+    "heroku-postbuild": "yarn && npm run client && npm run server && npm run build"
   },
   "repository": {
     "type": "git",

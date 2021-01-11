@@ -22,11 +22,5 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^6.0.1"
-  },
-  "devDependencies": {
-    "autoprefixer": "^10.0.2",
-    "cssnano": "^4.1.10",
-    "postcss": "^8.1.10",
-    "postcss-cli": "^8.3.0"
   }
 }
