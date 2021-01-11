@@ -9,9 +9,9 @@
     "dev": "concurrently \"npm dev:server\" \"npm dev:client\"",
     "client": "cd client && yarn",
     "server": "cd server && yarn --only=dev --no-shrinkwrap",
-    "build": "webpack --config webpack.prod.config.js --progress",
+    "build": "cd client && npm run build",
     "start": "cd server && npm start",
-    "heroku-postbuild": "yarn && npm run server && npm run client && cd client && npm run build"
+    "heroku-postbuild": "yarn && npm run server && npm run client && npm run build"
   },
   "repository": {
     "type": "git",
