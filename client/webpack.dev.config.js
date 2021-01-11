@@ -1,64 +1,8 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const Dotenv = require('dotenv-webpack')
+const base = require('./webpack.base.config')
 
-module.exports = {
-  entry: './src/index.js',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
-  },
+const config = Object.assign({}, base, {
   mode: 'development',
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: [
-                  [
-                    'postcss-preset-env',
-                    {
-                      // Options
-                    },
-                  ],
-                  require('tailwindcss'),
-                ],
-              },
-              sourceMap: true,
-            },
-          },
-        ],
-      },
-      {
-        test: /\.m?js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              '@babel/preset-react',
-              ['@babel/preset-env', { useBuiltIns: 'usage' }],
-            ],
-          },
-        },
-      },
-    ],
-  },
-  plugins: [
-    new Dotenv(),
-    new HtmlWebpackPlugin({
-      template: './src/index.html',
-    }),
-    new CleanWebpackPlugin(),
-  ],
-  devtool: 'eval-cheap-module-source-map',
+  devtool: 'eval-source-map',
   devServer: {
     compress: true,
     historyApiFallback: true,
@@ -73,4 +17,31 @@ module.exports = {
         'X-Requested-With, content-type, Authorization',
     },
   },
-}
+})
+
+config.module.rules.unshift({
+  test: /\.css$/,
+  use: [
+    'style-loader',
+    'css-loader',
+    {
+      loader: 'postcss-loader',
+      options: {
+        postcssOptions: {
+          plugins: [
+            [
+              'postcss-preset-env',
+              {
+                // Options
+              },
+            ],
+            require('tailwindcss'),
+          ],
+        },
+        sourceMap: true,
+      },
+    },
+  ],
+})
+
+module.exports = config

@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import { Switch, Route } from 'react-router-dom'
-
-import Navbar from './components/Navbar'
-import ProfileDetails from './components/ProfileDetails'
-import EditProfile from './components/EditProfile'
 import Authenticate from './components/Authenticate'
-import Footer from './components/Footer'
+
+const Navbar = lazy(() => import('./components/Navbar'))
+const ProfileDetails = lazy(() => import('./components/ProfileDetails'))
+const EditProfile = lazy(() => import('./components/EditProfile'))
+const Footer = lazy(() => import('./components/Footer'))
 
 const fields = [
   { name: 'Photo' },
@@ -30,32 +30,34 @@ const App = () => {
 
   return (
     <div className="font-body min-h-screen">
-      <Switch>
-        <Route path="/profile">
-          <Navbar userDetails={userDetails} />
-          <Switch>
-            <Route path="/profile/edit-profile">
-              <EditProfile
-                fields={fields}
-                userDetails={userDetails}
-                setUserDetails={setUserDetails}
-              />
-              <Footer />
-            </Route>
-            <Route path="/profile">
-              <ProfileDetails
-                fields={fields}
-                userDetails={userDetails}
-                setUserDetails={setUserDetails}
-              />
-              <Footer />
-            </Route>
-          </Switch>
-        </Route>
-        <Route path="/">
-          <Authenticate />
-        </Route>
-      </Switch>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Switch>
+          <Route path="/profile">
+            <Navbar userDetails={userDetails} />
+            <Switch>
+              <Route path="/profile/edit-profile">
+                <EditProfile
+                  fields={fields}
+                  userDetails={userDetails}
+                  setUserDetails={setUserDetails}
+                />
+                <Footer />
+              </Route>
+              <Route path="/profile">
+                <ProfileDetails
+                  fields={fields}
+                  userDetails={userDetails}
+                  setUserDetails={setUserDetails}
+                />
+                <Footer />
+              </Route>
+            </Switch>
+          </Route>
+          <Route path="/">
+            <Authenticate />
+          </Route>
+        </Switch>
+      </Suspense>
     </div>
   )
 }
