@@ -26,7 +26,7 @@ const SocialLogin = () => {
               const { profileObj } = response
               siginIn(profileObj, 'google')
             }}
-            onFailure={(err, deets) => console.log({ err, deets })}
+            onFailure={(err) => console.log({ err })}
             cookiePolicy={'none'}
             render={(renderProps) => (
               <button
