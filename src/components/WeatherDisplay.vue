@@ -44,9 +44,8 @@
         <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
           <weather-card
             v-for="fiveDayForecast in weatherData.fiveDayForecast"
-            :key="fiveDayForecast.id"
+            :key="fiveDayForecast.date"
             :weather-data="fiveDayForecast"
-            :current-date="weatherData.date"
             :is-celsius="isCelsius"
           />
         </div>
@@ -173,15 +172,16 @@ export default {
   },
   computed: {
     highlightsCardData() {
-      const { todaysWeather } = this.weatherData;
+      const { current } = this.weatherData;
+
       return {
         wind: {
-          speed: todaysWeather.wind_speed.toFixed(),
-          direction: todaysWeather.wind_direction_compass
+          speed: current.wind_mph.toFixed(),
+          direction: current.wind_dir
         },
-        humidity: todaysWeather.humidity,
-        visibility: todaysWeather.visibility.toFixed(1),
-        airPressure: todaysWeather.air_pressure.toFixed()
+        humidity: current.humidity,
+        visibility: current.vis_miles.toFixed(1),
+        airPressure: current.pressure_mb.toFixed()
       };
     }
   }

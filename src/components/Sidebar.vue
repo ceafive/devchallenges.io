@@ -18,6 +18,7 @@
           @toggle-search-box="onToggleSearchBox"
           :todays-data="weatherData.todaysWeather"
           :is-celsius="isCelsius"
+          @start-search-with-coords="startSearchWithCoords"
         />
         <sidebar-search
           key="2"
@@ -77,6 +78,10 @@ export default {
     },
     recentSearches: {
       type: Array
+    },
+    startSearchWithCoords: {
+      type: Function,
+      required: true
     }
   }
 };

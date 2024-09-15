@@ -15,7 +15,8 @@
           class="flex justify-center items-center w-10 h-10 md:w-16 md:h-16 xl:w-10 xl:h-10 bg-buttonPrimary rounded-full"
         >
           <button
-            class=" text-textSecondary font-hairline p-2 focus:outline-none"
+            @click="getCurrentLocationAndSearch"
+            class=" text-textSecondary bg-green-800 rounded-full font-hairline p-2 focus:outline-none"
           >
             <svg
               class="inline-block h-8 w-8 md:h-10 md:w-10 xl:h-6 xl:w-6 cursor-pointer"
@@ -60,8 +61,8 @@
       <div>
         <img
           class="inline w-56 lg:w-72 xl:w-40"
-          :src="require(`../assets/images/${cloudImage}.png`)"
-          alt="heavy rain"
+          :src="cloudImage"
+          :alt="cloudInfo"
         />
       </div>
     </div>
@@ -80,7 +81,7 @@
         >
       </h1>
       <p
-        class="flex justify-center w-full font-semibold text-textPrimary md:text-4xl xl:text-3xl leading-none"
+        class="flex justify-center w-full font-semibold text-textPrimary md:text-4xl xl:text-3xl leading-none text-center"
       >
         {{ cloudInfo }}
       </p>
@@ -122,18 +123,34 @@ export default {
       required: true
     }
   },
+  methods: {
+    getCurrentLocationAndSearch() {
+      const showPosition = position => {
+        const coords = `${position.coords.latitude},${position.coords.longitude}`;
+        this.$emit("start-search-with-coords", coords);
+      };
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        console.log("Geolocation is not supported by this browser.");
+      }
+    }
+  },
   computed: {
     tempUnit() {
       return this.isCelsius ? "C" : "F";
     },
     cloudInfo() {
-      return this.todaysData.weather_state_name;
+      return this.todaysData.day.condition.text;
     },
     cloudImage() {
-      return this.todaysData.weather_state_name.split(" ").join("");
+      return this.todaysData.day.condition.icon.replace("//", "https://");
     },
     todaysTemp() {
-      return this.todaysData.the_temp.toFixed();
+      return this.isCelsius
+        ? this.todaysData.day.avgtemp_c.toFixed()
+        : this.todaysData.day.avgtemp_f.toFixed();
     }
   }
 };

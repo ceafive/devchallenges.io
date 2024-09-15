@@ -4,14 +4,10 @@
   >
     <div class="text-xl leading-none">{{ formattedDate }}</div>
     <div class="w-full">
-      <img
-        class="inline-block w-24 h-24"
-        :src="require(`../assets/images/${cloudInfo}.png`)"
-        alt="cloud"
-      />
+      <img class="inline-block w-24 h-24" :src="cloudImage" alt="cloud" />
     </div>
 
-    <div class="flex justify-between w-1/2 mt-4">
+    <div class="flex justify-between w-7/12 mt-4">
       <p>
         <span>{{ temperature.tempMax }}</span>
         <span><sup>o</sup>{{ tempUnit }}</span>
@@ -34,16 +30,12 @@ export default {
     weatherData: {
       type: Object,
       required: true
-    },
-    currentDate: {
-      type: String,
-      required: true
     }
   },
   data() {
     return {
-      cloudInfo: this.weatherData.weather_state_name.split(" ").join(""),
-      date: this.weatherData.applicable_date
+      cloudImage: this.weatherData.day.condition.icon.replace("//", "https://"),
+      date: this.weatherData.date
     };
   },
   computed: {
@@ -52,9 +44,7 @@ export default {
     },
     formattedDate() {
       // next day from API response time property
-      const todayDate = this.currentDate.split("T")[0];
-      const convert = new Date(todayDate).toUTCString();
-      var day = new Date(convert);
+      var day = new Date();
       var nextDay = new Date(day);
       nextDay.setDate(day.getDate() + 1);
       const convertNextDay = nextDay.toUTCString();
@@ -72,9 +62,14 @@ export default {
       return formattedDate === formattedNextDate ? "Tomorrow" : formattedDate;
     },
     temperature() {
-      const { max_temp, min_temp } = this.weatherData;
-      const tempMax = max_temp.toFixed();
-      const tempMin = min_temp.toFixed();
+      const {
+        maxtemp_c,
+        mintemp_c,
+        maxtemp_f,
+        mintemp_f
+      } = this.weatherData.day;
+      const tempMax = this.isCelsius ? maxtemp_c : maxtemp_f;
+      const tempMin = this.isCelsius ? mintemp_c : mintemp_f;
       return { tempMax, tempMin };
     }
   }

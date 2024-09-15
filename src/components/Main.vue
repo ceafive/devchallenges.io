@@ -9,6 +9,7 @@
       :on-start-weather-search="handleStartWeatherSearch"
       :recent-searches="recentSearches"
       :on-add-location="handleAddLocation"
+      :start-search-with-coords="handleStartWeatherSearchWithCoords"
       :error="error"
     />
     <weather-display
@@ -33,7 +34,7 @@ export default {
     return {
       error: {},
       isCelsius: true,
-      isFetching: false,
+      isFetching: true,
       isOpenSearch: false,
       locationData: {},
       allWeatherData: {},
@@ -61,21 +62,6 @@ export default {
     },
     handleToggleTemperatureUnit(condition = true) {
       this.isCelsius = condition;
-      const celsiusWeather = { ...this.allWeatherData };
-      const farenheitWeather = { ...this.allWeatherData };
-      const formattedConsolidatedWeather = farenheitWeather.consolidated_weather.map(
-        x => ({
-          ...x,
-          max_temp: (x.max_temp / 5) * 9 + 32,
-          min_temp: (x.min_temp / 5) * 9 + 32,
-          the_temp: (x.the_temp / 5) * 9 + 32
-        })
-      );
-      farenheitWeather.consolidated_weather = formattedConsolidatedWeather;
-
-      return !condition
-        ? (this.formattedWeather = farenheitWeather)
-        : (this.formattedWeather = celsiusWeather);
     },
 
     handleToggleSearchBox(condition) {
@@ -84,30 +70,39 @@ export default {
     async getWeatherData(cityID = "44418") {
       // get weather details
       this.isFetching = true;
-      const proxyurl = "https://cors-anywhere.herokuapp.com/";
-      const weatherUrl = `https://www.metaweather.com/api/location/${cityID}`;
-      const weatherRes = await fetch(proxyurl + weatherUrl);
-      const weatherData = await weatherRes.json();
+      const weatherUrl = `https://api.weatherapi.com/v1/forecast.json?q=${cityID}&days=6&key=60a8e829db8d4c109d083330241509`;
+      const weatherRes = await fetch(weatherUrl);
+      const wd = await weatherRes.json();
 
-      this.allWeatherData = weatherData;
-      this.formattedWeather = weatherData;
+      this.allWeatherData = wd;
+      this.formattedWeather = wd;
       this.isFetching = false;
       this.isOpenSearch = false;
     },
-    async handleStartWeatherSearch(location) {
+    async handleStartWeatherSearch(l) {
       this.error = {};
       try {
-        const proxyurl = "https://cors-anywhere.herokuapp.com/";
-        const weatherUrl = `https://www.metaweather.com/api/location/search/?query=${location}`;
-        const weatherRes = await fetch(proxyurl + weatherUrl);
+        const weatherUrl = `https://api.weatherapi.com/v1/current.json?q=${l}&key=60a8e829db8d4c109d083330241509`;
+        const weatherRes = await fetch(weatherUrl);
         const locationData = await weatherRes.json();
+        const { location } = locationData;
 
-        if (locationData.length <= 0) {
+        if (!location) {
           throw new Error("Location not found. Enter another location");
         }
-        const woeid = locationData[0].woeid;
+
         // get weather per search
-        await this.getWeatherData(woeid);
+        await this.getWeatherData(location?.name);
+      } catch (err) {
+        console.log(err.message);
+        this.error = { type: "no-weather-data", message: err.message };
+      }
+    },
+    async handleStartWeatherSearchWithCoords(coords) {
+      this.error = {};
+      try {
+        // get weather per search
+        await this.getWeatherData(coords);
       } catch (err) {
         console.log(err.message);
         this.error = { type: "no-weather-data", message: err.message };
@@ -116,30 +111,38 @@ export default {
   },
   computed: {
     todaysDate() {
-      return new Date(this.allWeatherData.time.split("T")[0])
-        .toISOString()
-        .slice(0, 10);
+      return new Date().toISOString().slice(0, 10);
     },
     weatherData() {
       return _.isEmpty(this.formattedWeather)
         ? {}
         : {
-            city: this.formattedWeather.title,
-            date: this.formattedWeather.time,
+            city: this.formattedWeather.location.name,
+            date: this.formattedWeather.location.time,
             todaysWeather: {
-              ...this.formattedWeather.consolidated_weather.find(
-                date => date.applicable_date === this.todaysDate
+              ...this.formattedWeather.forecast.forecastday.find(
+                date => date.date === this.todaysDate
               ),
-              city: this.formattedWeather.title
+              city: this.formattedWeather.location.name
             },
-            fiveDayForecast: this.formattedWeather.consolidated_weather.filter(
-              date => date.applicable_date !== this.todaysDate
-            )
+            fiveDayForecast: this.formattedWeather.forecast.forecastday.filter(
+              date => date.date !== this.todaysDate
+            ),
+            current: this.formattedWeather.current
           };
     }
   },
   created() {
-    this.getWeatherData();
+    if (navigator.geolocation) {
+      const showPosition = position => {
+        const coords = `${position.coords.latitude},${position.coords.longitude}`;
+        this.handleStartWeatherSearchWithCoords(coords);
+      };
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+      this.getWeatherData();
+    }
   }
 };
 </script>
